@@ -75,7 +75,7 @@ var userData = {
 var Windows_Registry = {
 	"FileExts" : {
 		"js" : {
-			"icon" : "img/icons/js.ico"
+			"icon" : "img/Icons/js.ico"
 		}
 	}
 }
@@ -204,7 +204,7 @@ window.addEventListener("load", function() {
 			
 			// b.addEventListener("click", whenProgramOpen);
 			// startMenu_Programs.appendChild(b);
-			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["InternetExplorer"], whenProgramOpen, "img/icons/iexplore48.png");
+			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["InternetExplorer"], whenProgramOpen, "img/Icons/iexplore48.png");
 		}
 		
 		if (true) {
@@ -254,7 +254,7 @@ window.addEventListener("load", function() {
 			// var t = document.createElement("a");
 			// var img = document.createElement("img");
 			// t.innerText = languages[userData["selectedLanguage"]]["notepad"];
-			// img.src = "img/icons/notepad.ico";
+			// img.src = "img/Icons/notepad.ico";
 			
 			// b.appendChild(img);
 			// b.appendChild(t);
@@ -263,7 +263,7 @@ window.addEventListener("load", function() {
 				// whenProgramOpen();
 			// });
 			// startMenu_Programs.appendChild(b);
-			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["notepad"], whenProgramOpen, "img/icons/notepad.ico");
+			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["notepad"], whenProgramOpen, "img/Icons/notepad.ico");
 			
 			
 		}
@@ -281,7 +281,7 @@ window.addEventListener("load", function() {
 				w.focus();
 			}
 			
-			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["WebXP_Documentation"], whenProgramOpen, "img/icons/notepad.ico");
+			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["WebXP_Documentation"], whenProgramOpen, "img/Icons/notepad.ico");
 			
 			
 		}
@@ -301,13 +301,13 @@ window.addEventListener("load", function() {
 			if (Windows_Registry["FileExts"][f["FileExtension"]]) {
 				console.log(Windows_Registry["FileExts"][f["FileExtension"]].f);
 				desktopIconImage.style.backgroundImage = "url('" + Windows_Registry["FileExts"][f["FileExtension"]].icon + "')";
-				// img.src = "img/icons/Icon_6.ico";
+				// img.src = "img/Icons/Icon_6.ico";
 				desktopIcon.addEventListener("dblclick", function() {
 					console.log("open");
 					Windows_Registry["FileExts"][f["FileExtension"]].defaultProgram(this.file);
 				});
 			} else {
-				desktopIconImage.style.backgroundImage = "url('img/icons/Icon_6.ico')";
+				desktopIconImage.style.backgroundImage = "url('img/Icons/Icon_6.ico')";
 			}
 			
 			desktopIconName.innerText = f.name;
