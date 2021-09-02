@@ -370,6 +370,9 @@ window.addEventListener("load", function() {
 		d.remove();
 	});
 	document.body.appendChild(d);
+
+	
+	document.getElementById("bootscreen").remove();
 });
 
 
@@ -387,8 +390,4 @@ function HelloThere() {
 	w.settings.canResize = false;
 	
 	return "It's time to get back on the computer !";
-}
-
-window.onload = function() {
-	document.getElementById("bootscreen").remove();
 }
