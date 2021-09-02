@@ -192,7 +192,6 @@ startMenu logoffPanels {
 startMenu menuBand {
 	color : #000;
 	min-width : calc(100% - 5px);
-	display : block;
 	padding : 2.5px;
 }
 

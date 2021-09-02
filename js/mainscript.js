@@ -378,6 +378,7 @@ window.addEventListener("load", function() {
 
 
 
+
 window.addEventListener("DOMContentLoaded", function() {
 	document.getElementById("bootscreen").remove();
 });
