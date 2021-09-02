@@ -1,0 +1,362 @@
+html, body {
+	--background : rgb(236 233 216);
+	--desktop : rgb(0 78 152);
+	--menu-hilight : rgb(49 106 197);
+	background-image : url('../img/bliss.bmp');
+}
+
+window {
+	
+	border-image : url('../img/themes/LunaBlue/captionInactive.png') 29 5 5 5;
+	border-style : solid;
+	border-image-repeat: stretch;
+	border-width : 5px;
+	border-top-width : 29px;
+}
+
+window:focus-within,
+window:focus-within window {
+	border-image : url('../img/themes/LunaBlue/captionActive.png') 29 5 5 5;
+}
+
+.maxWindow {
+	
+	border-image : url('../img/themes/LunaBlue/maxCaptionInactive.png') 29 5 5 5 !important;
+	border-style : solid;
+	border-image-repeat: stretch;
+	border-top-width : 29px;
+	left : -5px !important;
+	top : -2px !important;
+	width : calc(100% + 10px) !important;
+	height : calc(100% + 7px) !important;
+}
+
+.maxwindow:focus-within{
+	border-image : url('../img/themes/LunaBlue/maxCaptionActive.png') 29 5 5 5 !important;
+}
+
+content {
+	background-color : var(--background);
+}
+
+
+/* Close button */
+window:focus-within closeButton {
+	background-image : url('../img/themes/LunaBlue/closeNormal.png');
+}
+
+closeButton {
+	background-image : url('../img/themes/LunaBlue/closeInactive.png');
+}
+
+closeButton:hover {
+	background-image : url('../img/themes/LunaBlue/closeHover.png') !important;
+}
+
+closeButton:active {
+	background-image : url('../img/themes/LunaBlue/closeClick.png') !important;
+}
+
+/* Max/Min button */
+
+window:focus-within maxButton {
+	background-image : url('../img/themes/LunaBlue/maxNormal.png');
+}
+
+window maxButton {
+	background-image : url('../img/themes/LunaBlue/maxInactive.png');
+}
+
+window maxButton:hover {
+	background-image : url('../img/themes/LunaBlue/maxHover.png') !important;
+}
+
+window maxButton:active {
+	background-image : url('../img/themes/LunaBlue/maxClick.png') !important;
+}
+
+.maxwindow:focus-within maxButton {
+	background-image : url('../img/themes/LunaBlue/resNormal.png');
+}
+
+.maxWindow maxButton {
+	background-image : url('../img/themes/LunaBlue/resInactive.png');
+}
+
+.maxWindow maxButton:hover {
+	background-image : url('../img/themes/LunaBlue/resHover.png') !important;
+}
+
+.maxWindow maxButton:active {
+	background-image : url('../img/themes/LunaBlue/resClick.png') !important;
+}
+
+window:focus-within minButton {
+	background-image : url('../img/themes/LunaBlue/minNormal.png');
+}
+
+minButton {
+	left : calc(100% - 21px - 23px - 23px);
+}
+
+window minButton {
+	background-image : url('../img/themes/LunaBlue/minInactive.png');
+}
+
+taskbar {
+	background-image : url('../img/themes/LunaBlue/taskbar.bmp');
+}
+
+startButton {
+	padding : 0px 7px 0px 3px;
+	border-image : url('../img/themes/LunaBlue/startButtonNormal.png') 5 10 5 5;
+	border-style : solid;
+	border-width : 5px;
+	border-right-width : 10px;
+	border-image-repeat: stretch;
+	background-image : url('../img/themes/LunaBlue/startButtonInNormal.png');
+	/* background-position : 5px 5px; */
+	background-repeat : no-repeat;
+	background-size : 100% 100%;
+	font-family : Franklin Gothic;
+	font-size : 14.35pt;
+	font-style : italic;
+	color : #FFF;
+	letter-spacing : 0.1px;
+	text-shadow : 2px 2px 5px rgb(69 76 16);
+}
+
+startbutton:hover {
+	border-image : url('../img/themes/LunaBlue/startButtonHover.png') 5 10 5 5;
+	background-image : url('../img/themes/LunaBlue/startButtonInHover.png');
+}
+
+startbutton:active,
+startbutton:focus {
+	border-image : url('../img/themes/LunaBlue/startButtonOpen.png') 5 10 5 5;
+	background-image : url('../img/themes/LunaBlue/startButtonInOpen.png');
+}
+
+
+window minButton:hover {
+	background-image : url('../img/themes/LunaBlue/minHover.png') !important;
+}
+
+window minButton:active {
+	background-image : url('../img/themes/LunaBlue/minClick.png') !important;
+}
+
+titlebar title {
+	height : 19px;
+	line-height : 23px;
+	max-height : 19px;
+	font-size : 10pt;
+	font-family : Trebuchet MS;
+	font-weight : bold;
+	padding-left : 2px;
+	color : rgb(216 228 248);
+	letter-spacing : 0.5px;
+	/* text-shadow : 0px 0px 2px rgb(10 24 131); */
+}
+
+window:focus-within titlebar title {
+	text-shadow : 1px 1px 0px rgb(0 0 0);
+	color : #FFF;
+}
+
+startMenu user {
+	height : 63px;
+	border-top-width : 63px;
+	border-left-width : 7px;
+	border-right-width : 7px;
+	border-bottom-width : 0px;
+	border-image : url('../img/themes/LunaBlue/StartMenuUser.png') 63 7 0 7;
+	border-image-repeat: stretch;
+	border-style : solid;
+}
+startMenu {
+	/* -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.52); */
+	/* -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.52); */
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+	color : #000;
+	font-family : Tahoma;
+	font-size : 8pt;
+	font-style : normal;
+	border-radius : 7.5px 7.5px 0px 0px;
+}
+startMenu logoffPanels {
+	height : 39px;
+	border-top-width : 39px;
+	border-left-width : 7px;
+	border-right-width : 7px;
+	border-bottom-width : 0px;
+	border-image : url('../img/themes/LunaBlue/StartMenuLogoff.png') 39 7 0 7;
+	border-image-repeat: stretch;
+	border-style : solid;
+}
+#StartMenu_MyComputerSection {
+	border-image : url('../img/themes/LunaBlue/StartMenuRightPaneBorder.png') 3 2 2 2;
+	border-image-repeat: stretch;
+	border-style : solid;
+	border-width : 2px;
+	border-right-width : 2px;
+	border-top-width : 3px;
+	background-color : rgb(211 229 250);
+	min-height : 100%;
+	padding : 2.5px;
+}
+
+#StartMenu_ProgramsSection {
+	border-image : url('../img/themes/LunaBlue/StartMenuLeftPane.png') 3 2 2 2;
+	border-image-repeat: stretch;
+	border-style : solid;
+	border-width : 2px;
+	border-right-width : 2px;
+	border-top-width : 3px;
+	background-color : #FFF;
+	padding : 2.5px;
+	
+}
+
+startMenu menuBand {
+	color : #000;
+	min-width : calc(100% - 5px);
+	display : block;
+	padding : 2.5px;
+}
+
+
+
+#StartMenu_MyComputerSection menuBand a {
+	color : rgb(20, 42, 102);
+}
+
+startMenu menuBand:hover {
+	color : #FFF;
+	background-color : var(--menu-hilight);
+	vertical-align : center;
+}
+
+startMenu menuBand:hover a {
+	color : #FFF !important;
+}
+
+startMenu menuBand a {
+	padding-left : 5px;
+}
+
+taskbar notifBar {
+	border-style : solid;
+	border-width : 0px;
+	border-left-width : 6px;
+	line-height : 30px;
+	color : #FFF;
+	padding-right : 2px;
+	border-image : url('../img/themes/LunaBlue/notifBarLeftBorder.png') 0 0 0 7;
+	background-image : url('../img/themes/LunaBlue/notifBar.bmp');
+	background-size : 100% 100%;
+}
+
+WindowManager #desktop div {
+	color : #FFF;
+	text-shadow : 0px 0px 5px rgb(0 0 0 / 50%);
+	margin : 5px;
+}
+WindowManager #desktop div a {
+	padding : 2px;
+	margin-top : 1px;
+}
+
+WindowManager #desktop div:focus a {
+	color : #FFF;
+	background-color : var(--menu-hilight);
+}
+
+WindowManager #desktop div:focus icon {
+	filter: grayscale(100%) brightness(50%) sepia(100%) hue-rotate(190deg) saturate(500%);
+}
+
+textarea {
+	border : 2px solid #000 #FFF;
+	font-size : 8pt;
+	font-family : Tahoma;
+}
+
+contextMenu,
+mainMenu a subMenu {
+	border : 1px solid rgb(172 168 153);
+	padding : 2px;
+	background-color : #FFF;
+	box-shadow: 1px 1px 2.5px 0px rgba(0,0,0,0.75);
+}
+
+contextMenu p,
+mainMenu p {
+	margin : 0px;
+	padding : 2px;
+}
+contextMenu p:hover,
+mainMenu p:hover {
+	background-color : rgb(49 106 197);
+	color : #FFF;
+}
+
+
+
+/**/
+/**/
+/* BOUTON */
+/**/
+/**/
+xpButton {
+	border-image : url('../img/themes/LunaBlue/buttonNormalBorder.png') 4;
+	background-size : 100% 100%;
+	background-image : url('../img/themes/LunaBlue/buttonNormal.png');
+	border-width : 4px;
+	border-style : solid;
+	border-image-repeat : stretch;
+	font-family : Tahoma;
+	font-size : 8pt;
+}
+xpButton:focus {
+	border-image : url('../img/themes/LunaBlue/buttonFocusBorder.png') 4;
+}
+
+xpButton:hover {
+	border-image : url('../img/themes/LunaBlue/buttonHoverBorder.png') 4;
+	border-width : 4px;
+}
+
+xpButton:active {
+	border-image : url('../img/themes/LunaBlue/buttonActiveBorder.png') 4;
+	background-image : url('../img/themes/LunaBlue/buttonActive.png');	
+}
+
+mainMenu {
+	height : 20px;
+	background-image : var(--desktop);
+	box-sizing : border-box;
+	border-bottom : 1px solid #FFF;
+}
+
+mainMenu a {
+	height : 19px;
+}
+mainMenu a:hover {
+	background-color : var(--menu-hilight);
+	color : #FFF;
+}
+
+mainMenu a subMenu {
+	color : #000;
+	top : 19px;
+}
+
+mainmenu a subMenu {
+	opacity : 0;
+}
+mainmenu:focus a:hover subMenu,
+mainmenu:focus-within a:hover subMenu {
+	opacity : 1;
+	transition : linear 0.2s all;
+}

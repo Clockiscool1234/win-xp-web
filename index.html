@@ -1,0 +1,81 @@
+<head>
+	<title>
+		Windows XP
+	</title>
+	<script src="js/jquery.js"></script>
+	<script src="js/mainscript.js"></script>
+	<script src="js/WindowAPI.js"></script>
+	<script src="js/FileSaver.js"></script>
+	<link rel="stylesheet" id="ThemeStylesheet" href="css/LunaBlue.css">
+	<link rel="stylesheet" href="css/Main.css">
+	<meta charset="UTF-8">
+	
+</head>
+<body>
+	<!-- Charger les ressources -->
+	<img src="img/themes/LunaBlue/captionInactive.png" class="load">
+	<img src="img/themes/LunaBlue/captionActive.png" class="load">
+	<img src="img/themes/LunaBlue/maxCaptionInactive.png" class="load">
+	<img src="img/themes/LunaBlue/maxCaptionActive.png" class="load">
+	<img src="img/themes/LunaBlue/closeNormal.png" class="load">
+	<img src="img/themes/LunaBlue/closeInactive.png" class="load">
+	<img src="img/themes/LunaBlue/closeHover.png" class="load">
+	<img src="img/themes/LunaBlue/closeClick.png" class="load">
+	<img src="img/themes/LunaBlue/maxNormal.png" class="load">
+	<img src="img/themes/LunaBlue/maxInactive.png" class="load">
+	<img src="img/themes/LunaBlue/maxHover.png" class="load">
+	<img src="img/themes/LunaBlue/maxClick.png" class="load">
+	<img src="img/themes/LunaBlue/minNormal.png" class="load">
+	<img src="img/themes/LunaBlue/minInactive.png" class="load">
+	<img src="img/themes/LunaBlue/minHover.png" class="load">
+	<img src="img/themes/LunaBlue/minClick.png" class="load">
+	<img src="img/themes/LunaBlue/resNormal.png" class="load">
+	<img src="img/themes/LunaBlue/resInactive.png" class="load">
+	<img src="img/themes/LunaBlue/resHover.png" class="load">
+	<img src="img/themes/LunaBlue/resClick.png" class="load">
+	<img src="img/themes/LunaBlue/startButtonNormal.png" class="load">
+	<img src="img/themes/LunaBlue/startButtonInNormal.png" class="load">
+	<img src="img/themes/LunaBlue/startButtonHover.png" class="load">
+	<img src="img/themes/LunaBlue/startButtonInHover.png" class="load">
+	<img src="img/themes/LunaBlue/startButtonOpen.png" class="load">
+	<img src="img/themes/LunaBlue/startButtonInOpen.png" class="load">
+	<img src="img/themes/LunaBlue/notifBarLeftBorder.png" class="load">
+	<img src="img/themes/LunaBlue/notifBar.bmp" class="load">
+	<img src="img/themes/LunaBlue/StartMenuRightPaneBorder.png" class="load">
+	<img src="img/themes/LunaBlue/StartMenuLogoff.png" class="load">
+	<img src="img/themes/LunaBlue/StartMenuLeftPane.png" class="load">
+	<img src="img/themes/LunaBlue/StartMenuUser.png" class="load">
+	
+	<!-- Son de démarrage -->
+	<object type="audio/wav" width="0px" height="0" data="sounds/startup.wav">
+		<param name="filename" value="sounds/startup.wav" />
+		<param name="autostart" value="true" />
+		<param name="loop" value="false" />
+	</object>
+	<!-- Système de fenêtres -->
+	<WindowManager>
+		<div id="Desktop">
+			
+		</div>
+	</WindowManager>
+	<taskbar>
+		<startButton><img src="img/StartButtonIcon.png"><a>start</a>
+			<startMenu>
+				<user></user>
+				<null>
+					<div id="StartMenu_ProgramsSection">
+					
+					</div>
+					<div id="StartMenu_MyComputerSection">
+						
+					</div>
+				</null>
+				<logoffPanels></logoffPanels>
+			</startmenu>
+		</startButton>
+		<div id="taskbarTasks">
+		
+		</div>
+		<notifBar><a id="Windows_clock">00:00</a></notifBar>
+	</taskbar>
+</body>

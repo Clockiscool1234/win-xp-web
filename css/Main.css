@@ -1,0 +1,349 @@
+* {
+	outline : none;
+	image-rendering: pixelated;
+}
+
+html, body {
+	--default-cursor : url('cursor/arrow.png'), default;
+	--horizontal-resize : url('cursor/horizontalresize.png') 9 4, auto;
+	--vertical-resize : url('cursor/verticalresize.png') 3 9, auto;
+	--diagonal-resize : url('cursor/diagonal1resize.png') 7 7, auto;
+	--diagonal-two-resize : url('cursor/diagonal2resize.png') 7 7, auto;
+	--help-cursor : url('cursor/help.png') 0 0, auto;
+	font-family : Tahoma;
+	font-size : 8pt;
+	background-color : var(--desktop);
+	user-select : none;
+	overflow : hidden;
+	margin : 0px;
+	background-position : center;
+	background-repeat : no-repeat;
+	background-size : 100% 100%;
+	width : 100%;
+	height : 100%;
+	image-rendering: inherit;
+}
+
+.load {
+	display : none;
+	width : 0px;
+	height : 0px;
+}
+window {
+	display : block;
+	position : absolute;
+	left : 50px;
+	top : 50px;
+	width : 150px;
+	height : 150px;
+	box-sizing : border-box;
+}
+window content {
+	display : block;
+	width : 100%;
+	height : 100%;
+	overflow : hidden;
+}
+
+closeButton, maxButton, minButton {
+	display : block;
+	min-width : 21px;
+	max-width : 21px;
+	flex : 21px;
+	height : 21px;
+	margin-left : 1px;
+	margin-right : 1px;
+	float : right;
+	/* background-color : #000; */
+	z-index : 5000;
+}
+
+titlebar {
+	position : absolute;
+	left : 0px;
+	top : calc(-24px);
+	width : 100%;
+	height : 0px;
+	white-space : nowrap;
+	/* overflow-x : hidden; */
+}
+
+titlebar title,
+titlebar a {
+	position : relative;
+	z-index : 0;
+	pointer-events: none;
+	display : block;
+	flex : 1;
+	/* float : left; */
+	white-space : pre-wrap;
+	overflow : hidden;
+	box-sizing : border-box;
+	display : flex;
+}
+titlebar a a {
+	padding-left : 5px;
+}
+titlebar div {
+	width : 16px;
+	height : 100%;
+	background-repeat : no-repeat;
+	background-position : center;
+	background-size : contain;
+	display : block;
+	background-image : url('../img/Icons/js_small.ico');
+}
+
+WindowManager {
+	display : block;
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	width : 100%;
+	height : calc(100% - 30px);
+	overflow : hidden;
+}
+
+taskbar {
+	display : inline-flex;
+	position : absolute;
+	left : 0px;
+	top : calc(100% - 30px);
+	width : 100%;
+	height : 30px;
+	background-position : center;
+	background-repeat : no-repeat;
+	background-size : 100% 100%;
+}
+
+startButton {
+	display : flex;
+	box-sizing : border-box;
+	height : 100%;
+}
+
+taskbar #taskbarTasks{
+	display : inline-flex;
+	height : 100%;
+	flex : 100%;
+	padding : 0px 5px;
+	overflow : hidden;
+}
+
+taskbar #taskbarTasks div {
+	box-sizing : border-box;
+	width : 150px;
+	height : 25px;
+	margin-top : 3px;
+}
+
+taskbar #taskbarTasks img {
+	width : 16px;
+	height : 100%;
+}
+
+taskbar #taskbarTasks a {
+	line-height : 25px;
+	height : 100%;
+	flex : 1;
+}
+
+startMenu {
+	position : absolute;
+	left : 0px;
+	bottom : 30px;
+	/* background-color : #FFF; */
+	z-index : 9999999;
+	vertical-align : bottom;
+	min-width : 350px;
+}
+
+startMenu user {
+	display : block;
+	width : 100%;
+	box-sizing : border-box;
+}
+
+startMenu logoffPanels {
+	display : block;
+	width : 100%;
+	box-sizing : border-box;
+}
+
+taskbar notifBar {
+	float : right;
+	display : flex;
+	vertical-align : center;
+	height : 100%;
+}
+
+startButton startMenu {
+	display : none;
+	margin : 0px;
+	padding : 0px;
+}
+
+startButton:focus startMenu,
+startButton startMenu:focus-within {
+	display : table;
+}
+
+startMenu div {
+	display : table-cell;
+	min-width : 175px;
+	box-sizing : border-box;
+	margin : 0px;
+	/* height : 250px; */
+}
+#StartMenu_MyComputerSection,
+#StartMenu_ProgramsSection {
+	min-height : 100%;
+}
+
+
+startMenu null {
+	display : block;
+}
+
+menuBand img {
+	height : 32px;
+	width : 32px;
+	/* position : absolute; */
+	/* left : 0px; */
+	/* top : 0px; */
+	display : flex;
+	flex : 32px;
+	min-width : 32px;
+	max-width : 32px;
+}
+
+startMenu menuBand {
+	display : flex;
+}
+menuBand a {
+	min-width : 0px;
+	display : flex;
+	flex : 100%;
+	align-items: center;
+}
+
+startButton img {
+	padding-left : 2px;
+}
+
+startButton startMenu img {
+	padding-left : 0px;
+}
+startMenu * {
+	box-shadow : none;
+	text-shadow : none;
+}
+
+startButton a {
+	margin : 0px;
+	position : relative;
+	top : -1px;
+	padding-right : 10px;
+}
+
+WindowManager #desktop {
+	width : 100%;
+	height : 100%;
+	position : absolute;
+	left : 0px;
+	top : 0px;
+    box-sizing: border-box;
+}
+
+WindowManager #desktop div {
+	float : left;
+	text-align : center;
+	vertical-align : middle;
+	min-width : 48px;
+	min-height : 48px;
+}
+
+WindowManager #desktop icon {
+	display : inline-block;
+	width : 32px;
+	height : 32px;
+	background-size : 100%;
+	background-repeat : no-repeat;
+}
+
+body:active iframe {
+	pointer-events : none;
+}
+
+startMenu menuBand {
+	height : 32px;
+}
+
+contextMenu {
+	display : block;
+	position : absolute;
+	left : 50px;
+	top : 50px;
+	white-space : nowrap;
+}
+
+contextMenu p,
+mainMenu p {
+	min-width : 100%;
+	padding-left : 20px;
+	padding-right : 16px;
+	box-sizing : border-box;
+}
+
+xpButton {
+	display : inline-block;
+	text-align : center;
+	min-width : 73px;
+	min-height : 21px;
+	box-sizing : border-box;
+	white-space : nowrap;
+}
+
+mainMenu {
+	display : block;
+	width : 100%;
+	display : block;
+}
+
+mainMenu a {
+	margin : 0px;
+	padding : 2.5px 5px;
+	display : inline-block;
+	box-sizing : border-box;
+}
+
+mainMenu a subMenu {
+	display : none;
+	position : absolute;
+	transform : translate(-5px, 0px);
+}
+
+mainmenu:focus a:hover subMenu,
+mainmenu:focus-within a:hover subMenu {
+	display : block;
+}
+
+.logonui b {
+	display : block;
+	width : 308px;
+	height : 72px;
+	cursor : pointer;
+	font-family : Trebuchet MS;
+	font-size : 14pt;
+	box-sizing : border-box;
+	padding : 5px;
+}
+
+.logonui b:focus {
+	background-image : url('../img/loginUser.png');
+}
+
+#Windows_clock {
+	padding-left : 5px;
+	padding-right : 12px;
+}
