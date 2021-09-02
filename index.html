@@ -1,18 +1,37 @@
 <head>
+	<!-- Boot Screen (very important) -->
+	<link rel="stylesheet" href="css/bootscreen.css">
+	<img src="img/themes/LunaBlue/captionInactive.png" class="load">
+
 	<title>
-		Windows XP
+		Windows XP Online Simulator
 	</title>
 	<script src="js/jquery.js"></script>
 	<script src="js/mainscript.js"></script>
 	<script src="js/WindowAPI.js"></script>
 	<script src="js/FileSaver.js"></script>
-	<link rel="stylesheet" id="ThemeStylesheet" href="css/LunaBlue.css">
 	<link rel="stylesheet" href="css/Main.css">
+	<link rel="stylesheet" id="ThemeStylesheet" href="css/LunaBlue.css">
 	<meta charset="UTF-8">
 	
 </head>
 <body>
-	<!-- Charger les ressources -->
+
+	<!-- Boot Screen -->
+	<div id="bootscreen">
+		<div class="winxpbootlogo">
+			<img src="img/bootscreen/bootscreen.png">
+			<img src="img/bootscreen/loadingthing.png">
+		</div>
+		<div class="fadeinthingy">
+
+		</div>
+	</div>
+	<!-- ============ -->
+	<!-- Load Resources -->
+	<!-- ============ -->
+
+	<!-- Window and Explorer -->
 	<img src="img/themes/LunaBlue/captionInactive.png" class="load">
 	<img src="img/themes/LunaBlue/captionActive.png" class="load">
 	<img src="img/themes/LunaBlue/maxCaptionInactive.png" class="load">
@@ -45,14 +64,24 @@
 	<img src="img/themes/LunaBlue/StartMenuLogoff.png" class="load">
 	<img src="img/themes/LunaBlue/StartMenuLeftPane.png" class="load">
 	<img src="img/themes/LunaBlue/StartMenuUser.png" class="load">
-	
-	<!-- Son de démarrage -->
+
+	<!-- Cursors -->
+	<img src="cursor/arrow.png" class="load">
+	<img src="cursor/diagonal1resize.png" class="load">
+	<img src="cursor/diagonal2resize.png" class="load">
+	<img src="cursor/help.png" class="load">
+	<img src="cursor/horizontalresize.png" class="load">
+	<img src="cursor/verticalresize.png" class="load">
+
+
+	<!-- ============ -->
+	<!-- Starting sound -->
 	<object type="audio/wav" width="0px" height="0" data="sounds/startup.wav">
 		<param name="filename" value="sounds/startup.wav" />
 		<param name="autostart" value="true" />
 		<param name="loop" value="false" />
 	</object>
-	<!-- Système de fenêtres -->
+	<!-- Window System -->
 	<WindowManager>
 		<div id="Desktop">
 			

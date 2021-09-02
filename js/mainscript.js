@@ -388,3 +388,7 @@ function HelloThere() {
 	
 	return "It's time to get back on the computer !";
 }
+
+window.onload = function() {
+	document.getElementById("bootscreen").remove();
+}

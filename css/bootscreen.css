@@ -1,0 +1,69 @@
+#bootscreen {
+    display : block;
+    position: absolute;
+    left : 0px;
+    top : 0px;
+    bottom : 0px;
+    right : 0px;
+    background-color: black;
+    color : white;
+    z-index: 9999999999999;
+}
+
+#bootscreen .fadeinthingy {
+    animation-name : boot_fadein;
+    opacity : 0;
+    animation-iteration-count: 1;
+    animation-duration: 5s;
+    display : block;
+    position: absolute;
+    left : 0px;
+    top : 0px;
+    bottom : 0px;
+    right : 0px;
+    background-color: black;
+    z-index: 9999999999999;
+}
+
+#bootscreen .winxpbootlogo {
+    position: absolute;
+    left : 0px;
+    top : 0px;
+    bottom : 0px;
+    right : 0px;
+    width : 640px;
+    height : 480px;
+    margin : auto;
+    /* background-image : url("../"); */
+    z-index: 9999999999999;
+}
+
+#bootscreen .winxpbootlogo img[src="img/bootscreen/loadingthing.png"] {
+    /* background-image : url("../img/bootscreen/bootscreen.png"); */
+    position: absolute;
+    animation: boot_loadingthing linear;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    z-index: -1;
+    
+}
+
+@keyframes boot_fadein {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes boot_loadingthing {
+    0% {
+        left : 233px;
+        top : 354px;
+    }
+    100% {
+        left : 402px;
+        top : 354px;
+    }
+}
