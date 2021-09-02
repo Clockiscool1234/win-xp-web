@@ -372,14 +372,15 @@ window.addEventListener("load", function() {
 	document.body.appendChild(d);
 
 	
-	document.getElementById("bootscreen").remove();
 });
 
 
 
 
 
-
+window.addEventListener("DOMContentLoaded", function() {
+	document.getElementById("bootscreen").remove();
+});
 
 //You shall not pass !
 function HelloThere() {
