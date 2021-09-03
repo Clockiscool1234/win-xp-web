@@ -380,7 +380,7 @@ window.addEventListener("load", function() {
 
 
 window.addEventListener("DOMContentLoaded", function() {
-	document.getElementById("bootscreen").remove();
+	// document.getElementById("bootscreen").remove();
 });
 
 //You shall not pass !
