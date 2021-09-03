@@ -58,6 +58,10 @@ closeButton, maxButton, minButton {
 	z-index : 5000;
 }
 
+closeButton {
+	margin-right: 2px;
+}
+
 titlebar {
 	position : absolute;
 	left : 0px;
