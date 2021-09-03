@@ -267,7 +267,8 @@ mainMenu a subMenu {
 contextMenu p,
 mainMenu p {
 	margin : 0px;
-	padding : 2px;
+	padding-top : 2px;
+	padding-bottom : 2px;
 }
 contextMenu p:hover,
 mainMenu p:hover {
@@ -335,9 +336,31 @@ mainmenu:focus-within a:hover subMenu {
 	transition : linear 0.2s all;
 }
 
+taskbar #taskbarTasks .activeWindow {
+	background-image : url('../img/themes/LunaBlue/taskbarProgramActive.png');
+	border-image : url('../img/themes/LunaBlue/taskbarProgramActiveBorder.png') 0 2;
+}
+
+
+taskbar #taskbarTasks div:hover {
+	background-image : url('../img/themes/LunaBlue/taskbarProgramHover.png');
+	border-image : url('../img/themes/LunaBlue/taskbarProgramHoverBorder.png') 0 2;
+}
+
+taskbar #taskbarTasks .activeWindow:hover,
+taskbar #taskbarTasks div:active {
+	background-image : url('../img/themes/LunaBlue/taskbarProgramActiveHover.png');
+	border-image : url('../img/themes/LunaBlue/taskbarProgramActiveHoverBorder.png') 0 2;
+}
+
 taskbar #taskbarTasks div {
 	background-image : url('../img/themes/LunaBlue/taskbarProgramNormal.png');
 	border-image : url('../img/themes/LunaBlue/taskbarProgramNormalBorder.png') 0 2;
 	border-width : 0px 2px;
 	border-style : solid;
+	pointer-events: all;
+}
+
+taskbar #taskbarTasks a {
+	color : white;
 }

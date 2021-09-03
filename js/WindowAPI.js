@@ -147,10 +147,14 @@ var WindowAPI = {
 		w.style.left = "50px";
 		w.style.top = "50px";
 		
+		
 		w.style.minHeight = "33.5px";
 		w.style.minWidth = "100.5px";
 		
-		
+		w.Close = function() {
+			WindowAPI.CloseWindow(w);
+		};
+
 		var t = document.createElement("titlebar");
 		w.appendChild(t);
 		var title = document.createElement("a");
@@ -170,6 +174,9 @@ var WindowAPI = {
 		maxbutton.addEventListener("click", function() {
 			WindowAPI.MaxWindow(w);
 		});
+		minbutton.addEventListener("click", function() {
+			WindowAPI.MinWindow(w);
+		});
 		t.appendChild(minbutton);
 		t.appendChild(title);
 		var titleText = document.createElement("a");
@@ -185,9 +192,9 @@ var WindowAPI = {
 		var content = document.createElement("content");
 		w.appendChild(content);
 		w.content = content;
-		w["setIcon"] = function(iconURL) {
-			icon.style.backgroundImage = "url('" + iconURL + "')";
-		}
+		// w["setIcon"] = function(iconURL) {
+		// 	icon.style.backgroundImage = "url('" + iconURL + "')";
+		// }
 		w.settings = {};
 		w.settings["canResize"] = true;
 		w.settings["canResize"] = true;
@@ -199,17 +206,51 @@ var WindowAPI = {
 		w.titlebar["min"] = minbutton;
 		w.titlebar["title"] = title;
 		
+		var taskbarTasks = document.getElementById("taskbarTasks");
+		w.taskbarItem = document.createElement("div");
+		taskbarTasks.appendChild(w.taskbarItem);
+		var taskbarIcon = document.createElement("null");
+		taskbarIcon.className = "img";
+		var taskbarText = document.createElement("a");
+		taskbarText.innerText = name;
+		w.taskbarItem.appendChild(taskbarIcon);
+		w.taskbarItem.appendChild(taskbarText);
+		taskbarTasks.appendChild(w.taskbarItem);
+		w.taskbarItem.tabIndex = 0;
 		WindowAPI.zIndex++;
 		w.style.zIndex = WindowAPI.zIndex;
 		
 		w.setTitle = function(newT) {
 			titleText.innerText = newT;
+			taskbarText.innerText = newT;
 		};
 		
+		w.setIcon = function(url) {
+			icon.style.backgroundImage = "url('" + url + "')";
+			taskbarIcon.style.backgroundImage = "url('" + url + "')";
+		}
 		if (autoFocus) {
 			WindowAPI.zIndex++;
 			w.style.zIndex = WindowAPI.zIndex;
 		}
+		w.setIcon("img/Icons/js_small.ico");
+		w.addEventListener("focus", function() {
+			var taskbarItems = taskbarTasks.getElementsByTagName("div");
+			for(var i = 0; i < taskbarItems.length; i++) {
+				taskbarItems[i].classList.remove("activeWindow");
+			}
+			w.taskbarItem.classList.add("activeWindow");
+		});
+		w.addEventListener("blur", function() {
+			w.taskbarItem.classList.remove("activeWindow");
+		});
+		w.taskbarItem.addEventListener("click", function() {
+			if (w.taskbarItem.classList.contains("activeWindow")) {
+				WindowAPI.MinWindow(w);
+			} else {
+				WindowAPI.ResWindow(w);
+			}
+		});
 		return w;
 	},
 	"borderwidth" : 8,
@@ -224,6 +265,16 @@ var WindowAPI = {
 			}
 		}
 	},
+
+	"ResWindow" : function(w) {
+		w.style.display = "block";
+		w.focus();
+		WindowAPI.StartMoving(w, {target : null});
+	},
+	"MinWindow" : function(w) {
+		w.style.display = "none";
+		w.blur();
+	},
 	
 	"CloseWindow" : function(w) {
 		if (w.onclose) {
@@ -231,7 +282,9 @@ var WindowAPI = {
 				return;
 			}
 		}
+		w.taskbarItem.remove();
 		w.remove()
+		
 	}
 }
 WindowAPI["StartMenu"] = {};
@@ -357,7 +410,7 @@ WindowAPI["ShowError"] = function(errorText, errorTitle, errorIconID) {
 	w.style.minHeight = "114px";
 	w.style.minWidth = "100px";
 	okButton.addEventListener("click", function() {
-		w.remove();
+		w.Close();
 	});
 	
 	var t = document.createElement("p");
