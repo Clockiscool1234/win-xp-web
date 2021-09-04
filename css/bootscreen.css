@@ -44,6 +44,7 @@
     animation: boot_loadingthing linear;
     animation-duration: 2.5s;
     animation-iteration-count: infinite;
+    animation-delay: 2.5s;
     z-index: -1;
     
 }

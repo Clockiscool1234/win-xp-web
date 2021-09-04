@@ -234,6 +234,13 @@ var WindowAPI = {
 			w.style.zIndex = WindowAPI.zIndex;
 		}
 		w.setIcon("img/Icons/js_small.ico");
+		w.addEventListener("mousedown", function() {
+			var taskbarItems = taskbarTasks.getElementsByTagName("div");
+			for(var i = 0; i < taskbarItems.length; i++) {
+				taskbarItems[i].classList.remove("activeWindow");
+			}
+			w.taskbarItem.classList.add("activeWindow");
+		});
 		w.addEventListener("focus", function() {
 			var taskbarItems = taskbarTasks.getElementsByTagName("div");
 			for(var i = 0; i < taskbarItems.length; i++) {
@@ -242,7 +249,7 @@ var WindowAPI = {
 			w.taskbarItem.classList.add("activeWindow");
 		});
 		w.addEventListener("blur", function() {
-			w.taskbarItem.classList.remove("activeWindow");
+			if (!event.currentTarget.contains(event.relatedTarget)) w.taskbarItem.classList.remove("activeWindow");
 		});
 		w.taskbarItem.addEventListener("click", function() {
 			if (w.taskbarItem.classList.contains("activeWindow")) {

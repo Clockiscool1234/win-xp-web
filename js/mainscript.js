@@ -371,7 +371,7 @@ window.addEventListener("load", function() {
 	});
 	document.body.appendChild(d);
 
-	
+	setTimeout(function() {document.getElementById("bootscreen").remove();}, 7500);
 });
 
 
