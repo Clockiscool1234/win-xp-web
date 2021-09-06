@@ -96,6 +96,7 @@ titlebar div {
 	background-size : contain;
 	display : block;
 	background-image : url('../img/Icons/js_small.ico');
+	pointer-events: all;
 }
 
 WindowManager {
@@ -156,6 +157,8 @@ taskbar #taskbarTasks div {
 	animation : taskbartaskpopin linear;
 	animation-duration: 0.125s;
 	animation-iteration-count: 1;
+	overflow : hidden;
+
 }
 
 taskbar #taskbarTasks .img {
@@ -175,6 +178,9 @@ taskbar #taskbarTasks a {
 	height : 100%;
 	flex : 1;
 	padding-left: 5.5px;
+	overflow : hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 startMenu {

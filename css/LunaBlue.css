@@ -354,12 +354,12 @@ taskbar #taskbarTasks div {
 	border-style : solid;
 	pointer-events: all;
 }
+
 taskbar #taskbarTasks .activeWindow,
 taskbar #taskbarTasks div:active {
 	background-image : url('../img/themes/LunaBlue/taskbarProgramActive.png');
 	border-image : url('../img/themes/LunaBlue/taskbarProgramActiveBorder.png') 0 2;
 }
-
 
 taskbar #taskbarTasks a {
 	color : white;

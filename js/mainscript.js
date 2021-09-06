@@ -218,38 +218,10 @@ window.addEventListener("load", function() {
 			Windows_Registry.FileExts.js.defaultProgram = whenProgramOpen;
 		}
 		if (true) {
-			function whenProgramOpen(file) {
-				
-				var w;
-				var t = document.createElement("textarea");
-				t.innerText = "";
-				if (file != undefined) {
-					w = WindowAPI.CreateWindow(languages[userData["selectedLanguage"]]["notepadWindow"].replace("%1", file.name), true);
-				t.innerText = file.Content;
-				} else {
-					w = WindowAPI.CreateWindow(languages[userData["selectedLanguage"]]["notepadWindow_NoFile"], true);
-				}
-				t.style.boxSizing = "border-box";
-				t.style.width = "100%";
-				t.style.height = "100%";
-				var MainMenuJSON = {
-					"Fichier" : [
-					
-					],
-					"Edition" : [
-						
-					]
-				}
-				// w.content.appendChild(mainMenu);
-				w.content.appendChild(t);
-				w.focus();
-				w.file = file;
-				// w.mousedown();
-				
-				console.log(file);
-			}
 			
-			Windows_Registry.FileExts.js.defaultEditProgram = whenProgramOpen;
+			Windows_Registry.FileExts.js.defaultEditProgram = function(file) {
+				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
+			};
 			// var b = document.createElement("menuBand");
 			// var t = document.createElement("a");
 			// var img = document.createElement("img");
@@ -263,7 +235,9 @@ window.addEventListener("load", function() {
 				// whenProgramOpen();
 			// });
 			// startMenu_Programs.appendChild(b);
-			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["notepad"], whenProgramOpen, "img/Icons/notepad.ico");
+			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["notepad"], function() {
+				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {})
+			}, "img/Icons/notepad.ico");
 			
 			
 		}
@@ -371,7 +345,7 @@ window.addEventListener("load", function() {
 	});
 	document.body.appendChild(d);
 
-	setTimeout(function() {document.getElementById("bootscreen").remove();}, 7500);
+	setTimeout(function() {document.getElementById("bootscreen").remove();}, 3500);
 });
 
 

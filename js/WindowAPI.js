@@ -22,68 +22,124 @@ var WindowAPI = {
 		}
 	},
 	
-	"StartMoving" : function(w, e) {
+	"StartMoving" : function(w, e, target) {
 		WindowAPI.zIndex++;
 		w.style.zIndex = WindowAPI.zIndex;
 		var pos = {
-			"X" : event.pageX - parseInt(w.style.left),
-			"Y" : event.pageY - parseInt(w.style.top)
+			"X" : e.pageX - parseInt(w.style.left),
+			"Y" : e.pageY - parseInt(w.style.top)
 		}
-		if (w == event.target) {
+		if (w == e.target || target == w) {
 			if (pos.X >= WindowAPI.borderwidth && pos.Y >= WindowAPI.borderwidth && pos.X <= parseInt(w.style.width) - WindowAPI.borderwidth && pos.Y <= parseInt(w.style.height) - WindowAPI.borderwidth) {
-				function WindowAPI_WindowMove(e2) {
-					w.style.left = (parseInt(e2.pageX) - pos.X) + "px";
-					w.style.top = (parseInt(e2.pageY) - pos.Y) + "px";
+				// function WindowAPI_WindowMove(e2) {
+				// 	w.style.left = (parseInt(e2.pageX) - pos.X) + "px";
+				// 	w.style.top = (parseInt(e2.pageY) - pos.Y) + "px";
+				// }
+				function WindowAPI_WindowMove(x, y) {
+					w.style.left = (parseInt(x) - pos.X) + "px";
+					w.style.top = (parseInt(y) - pos.Y) + "px";
+				}
+
+				function mousemove(e) {
+					WindowAPI_WindowMove(e.pageX, e.pageY);
+				}
+
+				function touchmove(ev) {
+					WindowAPI_WindowMove(ev.changedTouches[0].pageX, ev.changedTouches[0].pageY);
+				}
+
+				function winapi_up() {
+					document.body.removeEventListener("mousemove", mousemove);
+					document.body.removeEventListener("touchmove", touchmove);
+					
 				}
 				
-				document.body.addEventListener("mouseup", function() {
-					document.body.removeEventListener("mousemove", WindowAPI_WindowMove);
-				});
-				document.body.addEventListener("mousemove", WindowAPI_WindowMove);
+				document.body.addEventListener("mouseup", winapi_up);
+				document.body.addEventListener("touchend", winapi_up);
+				// document.body.addEventListener("touchcancel", winapi_up);
+
+				document.body.addEventListener("mousemove", mousemove);
+				document.body.addEventListener("touchmove", touchmove);
 			} else {
 				if (pos.X < WindowAPI.borderwidth && w.settings.canResize) {
 					var x = parseInt(w.style.left) + parseInt(w.style.width);
 					// var y = parseInt(w.style.top) + parseInt(w.style.height);
 					
 					function size(e2) {
-						n = x - event.pageX;
+						var x2 = (e2.changedTouches != null ? e2.changedTouches[0].pageX : e2.pageX);
+						var y2 = (e2.changedTouches != null ? e2.changedTouches[0].pageY : e2.pageY);
+						n = x - x2;
 						
 						if (n > parseInt(w.style.minWidth)) {
 							w.style.width = n + "px";
+							w.style.left = x2 + "px";
 						} else {
 							w.style.width = w.style.minWidth;
+							w.style.left = x - parseInt(w.style.minWidth) - 1;
 						}
-						w.style.left = event.pageX + "px";
+
+						// var x2 = (e2.changedTouches != null ? e2.changedTouches[0].pageX : e2.pageX);
+						// var y2 = (e2.changedTouches != null ? e2.changedTouches[0].pageY : e2.pageY);
+						// n = x - x2;
+						
+						// if (n > parseInt(w.style.minWidth)) {
+						// 	w.style.width = n + "px";
+						// } else {
+						// 	w.style.width = w.style.minWidth;
+						// }
+						// w.style.left = x2 + "px";
 					}
+				
+					
 				
 					document.body.addEventListener("mouseup", function() {
 						document.body.removeEventListener("mousemove", size);
+						document.body.removeEventListener("touchmove", size);
+					});
+					document.body.addEventListener("touchend", function() {
+						document.body.removeEventListener("mousemove", size);
+						document.body.removeEventListener("touchmove", size);
 					});
 					document.body.addEventListener("mousemove", size);
+					document.body.addEventListener("touchmove", size);
 				}
 				if (pos.Y < WindowAPI.borderwidth && w.settings.canResize) {
 					// var x = parseInt(w.style.left) + parseInt(w.style.width);
 					var y = parseInt(w.style.top) + parseInt(w.style.height);
 					
 					function size(e2) {
-						n = y - event.pageY;
+						var x = (e2.changedTouches != null ? e2.changedTouches[0].pageX : e2.pageX);
+						var y2 = (e2.changedTouches != null ? e2.changedTouches[0].pageY : e2.pageY);
+						n = y - y2;
 						
 						if (n > parseInt(w.style.minHeight)) {
 							w.style.height = n + "px";
+							w.style.top = y2 + "px";
 						} else {
 							w.style.height = w.style.minHeight;
+							w.style.top = y - parseInt(w.style.minHeight) - 1;
 						}
-						w.style.top = event.pageY + "px";
 					}
+				
+					
 				
 					document.body.addEventListener("mouseup", function() {
 						document.body.removeEventListener("mousemove", size);
+						document.body.removeEventListener("touchmove", size);
+					});
+					document.body.addEventListener("touchend", function() {
+						document.body.removeEventListener("mousemove", size);
+						document.body.removeEventListener("touchmove", size);
 					});
 					document.body.addEventListener("mousemove", size);
+					document.body.addEventListener("touchmove", size);
 				}
 				if (pos.X > parseInt(w.style.width) - WindowAPI.borderwidth && w.settings.canResize) {
 					function WindowAPI_WindowRightSize(e2) {
-						var n = e2.pageX - parseInt(w.style.left) + 2.5;
+						var x = (e2.changedTouches != null ? e2.changedTouches[0].pageX : e2.pageX);
+						var y = (e2.changedTouches != null ? e2.changedTouches[0].pageY : e2.pageY);
+
+						var n = x - parseInt(w.style.left) + 2.5;
 						if (n > parseInt(w.style.minWidth)) {
 							w.style.width = n + "px";
 						} else {
@@ -93,12 +149,20 @@ var WindowAPI = {
 				
 					document.body.addEventListener("mouseup", function() {
 						document.body.removeEventListener("mousemove", WindowAPI_WindowRightSize);
+						document.body.removeEventListener("touchmove", WindowAPI_WindowRightSize);
+					});
+					document.body.addEventListener("touchend", function() {
+						document.body.removeEventListener("mousemove", WindowAPI_WindowRightSize);
+						document.body.removeEventListener("touchmove", WindowAPI_WindowRightSize);
 					});
 					document.body.addEventListener("mousemove", WindowAPI_WindowRightSize);
+					document.body.addEventListener("touchmove", WindowAPI_WindowRightSize);
 				}
 				if (pos.Y > parseInt(w.style.height) - WindowAPI.borderwidth && w.settings.canResize) {
 					function WindowAPI_Size(e2) {
-						var n = e2.pageY - parseInt(w.style.top) + 2.5;
+						var x = (e2.changedTouches != null ? e2.changedTouches[0].pageX : e2.pageX);
+						var y = (e2.changedTouches != null ? e2.changedTouches[0].pageY : e2.pageY);
+						var n = y - parseInt(w.style.top) + 2.5;
 						if (n > parseInt(w.style.minHeight)) {
 							w.style.height = n + "px";
 						} else {
@@ -108,8 +172,14 @@ var WindowAPI = {
 				
 					document.body.addEventListener("mouseup", function() {
 						document.body.removeEventListener("mousemove", WindowAPI_Size);
+						document.body.removeEventListener("touchmove", WindowAPI_Size);
+					});
+					document.body.addEventListener("touchend", function() {
+						document.body.removeEventListener("mousemove", WindowAPI_Size);
+						document.body.removeEventListener("touchmove", WindowAPI_Size);
 					});
 					document.body.addEventListener("mousemove", WindowAPI_Size);
+					document.body.addEventListener("touchmove", WindowAPI_Size);
 				}
 			}
 				
@@ -125,8 +195,20 @@ var WindowAPI = {
 		w.addEventListener("mousedown", function() {
 			WindowAPI.StartMoving(this, event);
 		});
+		w.addEventListener("touchstart", function(e) {
+			WindowAPI.StartMoving(this,
+				e.changedTouches[0], e.target
+			);
+			this.focus();
+		});
+
 		w.addEventListener("mousemove", function() {
 			WindowAPI.OnMouseOver(this, event);
+		});
+		w.addEventListener("touchmove", function(e) {
+			WindowAPI.OnMouseOver(this,
+				e.changedTouches[0]
+			);
 		});
 		w.addEventListener("dblclick", function() {
 			var pos = {
@@ -205,7 +287,73 @@ var WindowAPI = {
 		w.titlebar["max"] = maxbutton;
 		w.titlebar["min"] = minbutton;
 		w.titlebar["title"] = title;
+		w.contextMenu = [
+			{
+				"name" : "Restore",
+				"click" : function() {
+					WindowAPI.ResWindow(w);
+				},
+				"enabled" : w.classList.contains("maxWindow")
+			},
+			{
+				"name" : "Move",
+				"enabled" : false
+			},
+			{
+				"name" : "Size",
+				"enabled" : false
+			},
+			{
+				"name" : "Minimize",
+				"click" : function() {
+					WindowAPI.MinWindow(w);
+				}
+			},
+			{
+				"name" : "Maximize",
+				"click" : function() {
+					WindowAPI.MaxWindow(w);
+				}
+			},
+			{
+				"name" : "-",
+				"enabled" : false
+			},
+			{
+				"name" : "Close",
+				"click" : function() {
+					w.Close();
+				},
+				"enabled" : true
+			}
+		];
 		
+		// title.addEventListener("contextmenu", function(e) {
+		// 	WindowAPI.showContextMenu(w.contextMenu, this, e);
+		// 	// e.preventDefault();
+		// });
+		// // title.addEventListener("")
+		// title.style.pointerEvents = "all";
+		// title.addEventListener("mousedown", function(e) {
+		// 	WindowAPI.StartMoving(w, e, e.target);
+		// });
+		w.addEventListener("contextmenu", function(e) {
+			WindowAPI.showContextMenu(w.contextMenu, this, e);
+		});
+
+		content.addEventListener("contextmenu", function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		});
+
+		icon.setAttribute("tabindex", 0);
+		icon.tabIndex = 0;
+		icon.addEventListener("click", function(e) {
+		});
+		icon.addEventListener("dblclick", function(e) {
+			w.Close();
+			e.preventDefault();
+		})
 		var taskbarTasks = document.getElementById("taskbarTasks");
 		w.taskbarItem = document.createElement("div");
 		taskbarTasks.appendChild(w.taskbarItem);
@@ -384,6 +532,42 @@ WindowAPI["script"]["loadFrom"] = function(file) {
 	document.getElementsByTagName('head').item(0).appendChild(script); 
   
 }
+WindowAPI["httpGet"] = function(theUrl, callback, fromCache)
+{
+    let xmlhttp;
+    
+    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    } else { // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            callback(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("GET", theUrl, false);
+	if (!fromCache) xmlhttp.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
+    xmlhttp.send();
+    
+    return xmlhttp.response;
+};
+WindowAPI["loadProgram"] = {};
+WindowAPI["loadProgram"]["fromURL"] = function(url, args, fromCache) {
+	WindowAPI.httpGet(url, function(data) {
+		eval(data.toString());
+		try {
+			main(args);
+		} catch(e) {
+			if (main == null) {
+				WindowAPI.ShowError("Failed to start the program. No main function defined.", "Error", 0)
+				return;
+			}
+		}
+		delete main;
+	}, fromCache);
+};
 WindowAPI["errorIcons"] = ["url('img/Icons/Icon_52.ico')", "url('img/Icons/Icon_60.png')", "url('img/Icons/Icon_49.ico')"];
 WindowAPI["ShowError"] = function(errorText, errorTitle, errorIconID) {
 	var w = WindowAPI.CreateWindow(errorTitle);
