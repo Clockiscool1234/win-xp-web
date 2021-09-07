@@ -192,6 +192,10 @@ var WindowAPI = {
 
 
 		w.tabIndex = 0;
+		w.addEventListener("click", function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		})
 		w.addEventListener("mousedown", function() {
 			WindowAPI.StartMoving(this, event);
 		});
@@ -291,9 +295,13 @@ var WindowAPI = {
 			{
 				"name" : "Restore",
 				"click" : function() {
-					WindowAPI.ResWindow(w);
+					WindowAPI.MaxWindow(w);
+					
 				},
-				"enabled" : w.classList.contains("maxWindow")
+				"enabled" : () => w.classList.contains("maxWindow") && w.titlebar.max.style.display != "none" && w.settings.canResize,
+				"visible" : () => (w.titlebar.max.style.display != "none" && w.titlebar.min.style.display != "none" && w.settings.canResize),
+				"iconURLhover" : "#inverted",
+				"iconURL" : "img/Icons/ctxtResBlack.png"
 			},
 			{
 				"name" : "Move",
@@ -301,30 +309,42 @@ var WindowAPI = {
 			},
 			{
 				"name" : "Size",
-				"enabled" : false
+				"enabled" : false,
+				"visible" : () => (w.titlebar.max.style.display != "none" && w.titlebar.min.style.display != "none" && w.settings.canResize)
 			},
 			{
 				"name" : "Minimize",
 				"click" : function() {
 					WindowAPI.MinWindow(w);
-				}
+				},
+				"enabled" : () => w.titlebar.min.style.display != "none",
+				"visible" : () => (w.titlebar.max.style.display != "none" && w.titlebar.min.style.display != "none" && w.settings.canResize),
+				"iconURLhover" : "#inverted",
+				"iconURL" : "img/Icons/ctxtMinBlack.png"
 			},
 			{
 				"name" : "Maximize",
 				"click" : function() {
 					WindowAPI.MaxWindow(w);
-				}
+				},
+				"enabled" : () => !w.classList.contains("maxWindow") && w.titlebar.max.style.display != "none" && w.settings.canResize,
+				"visible" : () => (w.titlebar.max.style.display != "none" && w.titlebar.min.style.display != "none" && w.settings.canResize),
+				"iconURL" : "img/Icons/ctxtMaxBlack.png",
+				"iconURLhover" : "#inverted"
 			},
 			{
 				"name" : "-",
-				"enabled" : false
+				"enabled" : false,
+				"visible" : () => (w.titlebar.max.style.display != "none" && w.titlebar.min.style.display != "none" && w.settings.canResize)
 			},
 			{
 				"name" : "Close",
 				"click" : function() {
 					w.Close();
 				},
-				"enabled" : true
+				"enabled" : true,
+				"iconURL" : "img/Icons/ctxtCloseBlack.png",
+				"iconURLhover" : "#inverted"
 			}
 		];
 		
@@ -498,19 +518,93 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 		elemParent.focus();
 	});
 	for (i = 0; i < JSONContextMenu.length; i++) {
-		var e = document.createElement("p");
 		var s = JSONContextMenu[i];
-		e.innerText = s.name;
-		function createTheOnClick(func) {
-			e.onclick = function() {
-				event.stopPropagation();
-				event.preventDefault();
-				contextMenu.blur();
-				func();
-			};
+		if (s["name"] == "-") {
+			var e = document.createElement("separator");
+			contextMenu.appendChild(e);
+			continue;
 		}
-		createTheOnClick(s.click);
-		contextMenu.appendChild(e);
+
+		var visible = true;
+		if (s["visible"] !== null) {
+			if (typeof(s["visible"]) === "function") {
+				if (s["visible"]() == false) {
+					visible = false;
+				}
+			} else {
+				if (s["visible"] == false) {	
+					visible = false;
+				}
+			}
+		}
+		if (visible) {
+			var e = document.createElement("p");
+			var enabled = true;
+
+			if (s["iconURL"] != null) {
+				var icon = document.createElement("img");
+				icon.width = 16;
+				icon.height = 16;
+				console.log(icon);
+				e.appendChild(icon);
+				e.style.display = "flex";
+				e.style.paddingLeft = "2px";
+	
+				icon.style.flex = 1;
+				icon.style.maxWidth = 16;
+				icon.style.marginRight = "4px";
+				icon.style.marginBottom = "1px";
+				icon.src = s["iconURL"];
+				e.innerHTML += "<span style=\"flex : 1;height : 16px;line-height : 14px;\">" + s.name + "</span>";
+				if (s["iconURLhover"] != null) {
+					if (s["iconURLhover"] == "#inverted") {
+						e.setAttribute("invertedonhover", "true");
+						console.log("good");
+					} else {
+						e.addEventListener("mouseenter", function() {
+							icon.src = s["iconURLhover"];
+						});
+						e.addEventListener("mouseenter", function() {
+							icon.src = s["iconURL"];
+						});
+					}
+				}
+			} else {
+				e.innerText = s.name;
+			}
+			
+
+
+			function createTheOnClick(func) {
+				if (enabled) {
+					e.onclick = function() {
+						event.stopPropagation();
+						event.preventDefault();
+						
+							contextMenu.blur();
+							func();
+					};
+				}
+			}
+			if (s["enabled"] !== null) {
+				if (typeof(s["enabled"]) === "function") {
+					if (s["enabled"]() == false) {
+						e.setAttribute("disabled", "disabled");
+						enabled = false;
+					}
+				} else {
+					if (s["enabled"] == false) {
+						e.setAttribute("disabled", "disabled");
+						enabled = false;
+					}
+				}
+			}
+			createTheOnClick(s.click);
+				
+					
+			contextMenu.appendChild(e);
+		}
+		
 	}
 	
 	

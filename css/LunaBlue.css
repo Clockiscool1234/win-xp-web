@@ -276,6 +276,19 @@ mainMenu p:hover {
 	color : #FFF;
 }
 
+contextMenu p[disabled="disabled"],
+mainMenu p[disabled="disabled"] {
+	color : #ACA899;
+}
+
+contextMenu p[disabled="disabled"] img {
+	filter: grayscale(1) invert(69%) sepia(2%) saturate(1419%) hue-rotate(10deg) brightness(98%) contrast(88%) !important;
+}
+
+contextMenu separator,
+mainMenu separator {
+	border-top : 1px solid #ACA899;
+}
 
 
 /**/

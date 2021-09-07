@@ -326,10 +326,28 @@ contextMenu {
 contextMenu p,
 mainMenu p {
 	min-width : 100%;
-	padding-left : 20px;
+	padding-left : 22px;
 	padding-right : 16px;
 	box-sizing : border-box;
 	/* display : inline-block; */
+}
+
+/* mainMenu p {
+	filter: invert(0);
+} */
+
+mainMenu p[invertedonhover="true"]:hover img,
+contextMenu p[invertedonhover="true"]:hover img {
+	filter: invert(1);
+}
+
+contextMenu separator,
+mainMenu separator {
+	margin: 3px 3px 5px 3px;
+	height : 0px;
+	/* min-width: 100%; */
+	display: block;
+	/* border-top : 1px solid #000; */
 }
 
 xpButton {
@@ -384,3 +402,4 @@ mainmenu:focus-within a:hover subMenu {
 	padding-left : 5px;
 	padding-right : 12px;
 }
+

@@ -344,7 +344,12 @@ window.addEventListener("load", function() {
 		d.remove();
 	});
 	document.body.appendChild(d);
-
+	document.addEventListener("click", function() {
+		var taskbarTasks = document.getElementById("taskbarTasks");
+		for(var i = 0; i < taskbarTasks.children.length; i++) {
+			taskbarTasks.children[i].classList.remove("activeWindow");
+		}
+	});
 	setTimeout(function() {document.getElementById("bootscreen").remove();}, 3500);
 });
 
