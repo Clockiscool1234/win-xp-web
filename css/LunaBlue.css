@@ -264,6 +264,8 @@ mainMenu a subMenu {
 	box-shadow: 1px 1px 2.5px 0px rgba(0,0,0,0.75);
 }
 
+
+
 contextMenu p,
 mainMenu p {
 	margin : 0px;
@@ -282,7 +284,7 @@ mainMenu p[disabled="disabled"] {
 }
 
 contextMenu p[disabled="disabled"] img {
-	filter: grayscale(1) invert(69%) sepia(2%) saturate(1419%) hue-rotate(10deg) brightness(98%) contrast(88%) !important;
+	filter: brightness(0) saturate(100%) invert(69%) sepia(2%) saturate(1419%) hue-rotate(10deg) brightness(98%) contrast(88%) !important;
 }
 
 contextMenu separator,

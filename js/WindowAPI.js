@@ -338,13 +338,14 @@ var WindowAPI = {
 				"visible" : () => (w.titlebar.max.style.display != "none" && w.titlebar.min.style.display != "none" && w.settings.canResize)
 			},
 			{
-				"name" : "Close",
+				"name" : "<strong>Close</strong>",
 				"click" : function() {
 					w.Close();
 				},
 				"enabled" : true,
 				"iconURL" : "img/Icons/ctxtCloseBlack.png",
-				"iconURLhover" : "#inverted"
+				"iconURLhover" : "#inverted",
+				"shortcutText" : "<strong>Alt+F4</strong>"
 			}
 		];
 		
@@ -519,11 +520,6 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 	});
 	for (i = 0; i < JSONContextMenu.length; i++) {
 		var s = JSONContextMenu[i];
-		if (s["name"] == "-") {
-			var e = document.createElement("separator");
-			contextMenu.appendChild(e);
-			continue;
-		}
 
 		var visible = true;
 		if (s["visible"] !== null) {
@@ -538,6 +534,12 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 			}
 		}
 		if (visible) {
+			if (s["name"] == "-") {
+				var e = document.createElement("separator");
+				contextMenu.appendChild(e);
+				continue;
+			}
+
 			var e = document.createElement("p");
 			var enabled = true;
 
@@ -556,6 +558,10 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 				icon.style.marginBottom = "1px";
 				icon.src = s["iconURL"];
 				e.innerHTML += "<span style=\"flex : 1;height : 16px;line-height : 14px;\">" + s.name + "</span>";
+				if (s["shortcutText"] != null) {
+					e.innerHTML += "<span style=\"max-width : min-content; min-width : min-content; white-space : nowrap; flex : 1;height : 16px;line-height : 14px; text-align : right; margin-left : 35px\">" + s["shortcutText"] + "</span>";
+					e.style.paddingRight = "13px";
+				}
 				if (s["iconURLhover"] != null) {
 					if (s["iconURLhover"] == "#inverted") {
 						e.setAttribute("invertedonhover", "true");

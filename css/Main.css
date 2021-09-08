@@ -341,9 +341,13 @@ contextMenu p[invertedonhover="true"]:hover img {
 	filter: invert(1);
 }
 
+/* strong {
+	font-weight: 1100;
+} */
+
 contextMenu separator,
 mainMenu separator {
-	margin: 3px 3px 5px 3px;
+	margin: 3px 5px 3px 3px;
 	height : 0px;
 	/* min-width: 100%; */
 	display: block;
