@@ -351,6 +351,17 @@ window.addEventListener("load", function() {
 		}
 	});
 	setTimeout(function() {document.getElementById("bootscreen").remove();}, 3500);
+	document.body.addEventListener("keydown", function(ev) {
+		console.log(ev.key);
+		console.log(ev.altKey);
+		if (ev.key.toLowerCase() == "enter" && ev.altKey) {
+			if (!window.screenTop && !window.screenY) {
+				document.exitFullscreen();
+			} else {
+				document.body.requestFullscreen();
+			}
+		}
+	});
 });
 
 

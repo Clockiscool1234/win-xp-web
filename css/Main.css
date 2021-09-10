@@ -4,7 +4,10 @@
 }
 
 html, body {
-	--default-cursor : url('cursor/arrow.png'), default;
+	--default-cursor : var(--arrow-cursor);
+
+	--arrow-cursor : url('cursor/arrow.png'), default;
+	--loading-cursor : url('cursor/arrow-loading.png'), default;
 	--horizontal-resize : url('cursor/horizontalresize.png') 9 4, auto;
 	--vertical-resize : url('cursor/verticalresize.png') 3 9, auto;
 	--diagonal-resize : url('cursor/diagonal1resize.png') 7 7, auto;

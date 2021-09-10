@@ -463,6 +463,14 @@ var WindowAPI = {
 		
 	}
 }
+WindowAPI["loadingState"] = {
+	"value" : 0,
+	"apply" : function() {
+		if (WindowAPI["loadingState"]["value"] < 0) WindowAPI["loadingState"]["value"] = 0;
+		document.body.style["cursor"] = (WindowAPI["loadingState"]["value"] > 0 ? "var(--loading-cursor)": "var(--arrow-cursor)");
+		// document.body.style["--default-cursor"] = (WindowAPI["loadingState"]["value"] > 0 ? "var(--loading-cursor)": "var(--arrow-cursor)");
+	}
+};
 WindowAPI["StartMenu"] = {};
 WindowAPI["StartMenu"]["Add"] = function(name, call, iconSrc) {
 		var startMenu_Programs = document.getElementById("StartMenu_ProgramsSection");
@@ -655,8 +663,12 @@ WindowAPI["httpGet"] = function(theUrl, callback, fromCache)
 };
 WindowAPI["loadProgram"] = {};
 WindowAPI["loadProgram"]["fromURL"] = function(url, args, fromCache) {
+	WindowAPI["loadingState"]["value"]++;
+	WindowAPI["loadingState"]["apply"]();
 	WindowAPI.httpGet(url, function(data) {
 		eval(data.toString());
+		WindowAPI["loadingState"]["value"]--;
+		WindowAPI["loadingState"]["apply"]();
 		try {
 			main(args);
 		} catch(e) {
