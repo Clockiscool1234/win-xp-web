@@ -244,15 +244,7 @@ window.addEventListener("load", function() {
 		
 		if (true) {
 			function whenProgramOpen() {
-				var w = WindowAPI.CreateWindow("Web XP's Documentation");
-				var iframe = document.createElement("iframe");
-				iframe.src = "documentation.html";
-				iframe.style.boxSizing = "border-box";
-				iframe.style.width = "100%";
-				iframe.style.height = "100%";
-				iframe.style.border = "1px solid #000";
-				w.content.appendChild(iframe);
-				w.focus();
+				WindowAPI.loadProgram.fromURL("js/soft/doc.js", {})
 			}
 			
 			WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["WebXP_Documentation"], whenProgramOpen, "img/Icons/notepad.ico");

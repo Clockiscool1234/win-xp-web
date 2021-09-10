@@ -1,4 +1,4 @@
-
+var debug = false;
 
 var WindowAPI = {
 	"OnMouseOver" : function(w, event) {
@@ -523,8 +523,10 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 	checkIfParentNode();
 	
 	contextMenu.addEventListener("blur", function() {
-		this.remove();
-		elemParent.focus();
+		if (!debug) {
+			this.remove();
+			elemParent.focus();
+		}
 	});
 	for (i = 0; i < JSONContextMenu.length; i++) {
 		var s = JSONContextMenu[i];
@@ -566,10 +568,9 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 				icon.style.marginBottom = "1px";
 				icon.src = s["iconURL"];
 				e.innerHTML += "<span style=\"flex : 1;height : 16px;line-height : 14px;\">" + s.name + "</span>";
-				if (s["shortcutText"] != null) {
-					e.innerHTML += "<span style=\"max-width : min-content; min-width : min-content; white-space : nowrap; flex : 1;height : 16px;line-height : 14px; text-align : right; margin-left : 35px\">" + s["shortcutText"] + "</span>";
-					e.style.paddingRight = "13px";
-				}
+			
+				
+				e.style.height = "auto";
 				if (s["iconURLhover"] != null) {
 					if (s["iconURLhover"] == "#inverted") {
 						e.setAttribute("invertedonhover", "true");
@@ -586,8 +587,14 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 			} else {
 				e.innerText = s.name;
 			}
-			
-
+			if (s["shortcutText"] != null) {
+				var marginleft = "9px";
+				if (s["shortcutText"].toLowerCase().startsWith("<strong>")) {
+					marginleft = "24px";
+				}
+				e.innerHTML += "<span style=\"max-width : 52px; min-width : 52px; white-space : nowrap; flex : 1;height : 16px;line-height : 14px; text-align : left; margin-left : " + marginleft + "\">" + s["shortcutText"] + "</span>";
+				e.style.paddingRight = "0px";
+			}
 
 			function createTheOnClick(func) {
 				if (enabled) {

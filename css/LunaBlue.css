@@ -1,8 +1,93 @@
+
 html, body {
 	--background : rgb(236 233 216);
 	--desktop : rgb(0 78 152);
 	--menu-hilight : rgb(49 106 197);
 	background-image : url('../img/bliss.bmp');
+}
+
+*::-webkit-scrollbar {
+	width: 17px;
+	height: 17px;
+	cursor : var(--default-cursor);
+}
+
+*::-webkit-scrollbar-track {
+	background-image: url('../img/themes/LunaBlue/scrollback.png');
+	background-color: gray;
+	background-size: stretch;
+	background-repeat: repeat-y;
+}
+*::-webkit-scrollbar-track:horizontal {
+	background-image: url('../img/themes/LunaBlue/scrollback_horizontal.png');
+	background-repeat: repeat-x;
+}
+*::-webkit-scrollbar-thumb {
+	content: '';
+	/* background-image: url('../img/themes/LunaBlue/scrollbar-normal.png'); */
+	background-position: center;
+	/* background-repeat: repeat-y; */
+	box-sizing: border-box;
+	border: 3px solid;
+	background-color: black;
+	border-image: url("../img/themes/LunaBlue/scrollbar-normal.png") 3 3 3 3;
+
+	
+	background-image: url('../img/themes/LunaBlue/scrollbar-normal-thing.png'), url('../img/themes/LunaBlue/scrollbar-normal-background.png');
+	background-size: unset, 100% 100%;
+	background-position: center, unset;
+	background-repeat: no-repeat, repeat;
+}
+*::-webkit-scrollbar-thumb:horizontal {
+	background-image: url('../img/themes/LunaBlue/scrollbar-normal-thing-horizontal.png'), url('../img/themes/LunaBlue/scrollbar-normal-background-horizontal.png');
+	border-image: url("../img/themes/LunaBlue/scrollbar-normal-horizontal.png") 3 3 3 3;
+}
+
+*::-webkit-scrollbar-button {
+	width: 17px;
+	height: 17px;
+	background-size: 68px 17px;
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+}
+*::-webkit-scrollbar-button:hover {
+	background-position: -17px 0px;
+}
+*::-webkit-scrollbar-button:active {
+	background-position: -34px 0px;
+}
+*::-webkit-scrollbar-button:disabled {
+	background-position: -51px 0px;
+}
+*::-webkit-scrollbar-button:decrement:vertical {
+	background-image: url('../img/themes/LunaBlue/scrollbar-up.png');
+}
+*::-webkit-scrollbar-button:increment:vertical {
+	background-image: url('../img/themes/LunaBlue/scrollbar-down.png');
+}
+*::-webkit-scrollbar-button:decrement:horizontal {
+	background-image: url('../img/themes/LunaBlue/scrollbar-left.png');
+}
+*::-webkit-scrollbar-button:increment:horizontal {
+	background-image: url('../img/themes/LunaBlue/scrollbar-right.png');
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	border-image: url("../img/themes/LunaBlue/scrollbar-hover.png") 3 3 3 3;
+	background-image: url('../img/themes/LunaBlue/scrollbar-hover-thing.png'), url('../img/themes/LunaBlue/scrollbar-hover-background.png');
+}
+*::-webkit-scrollbar-thumb:active {
+	border-image: url("../img/themes/LunaBlue/scrollbar-active.png") 3 3 3 3;
+	background-image: url('../img/themes/LunaBlue/scrollbar-active-thing.png'), url('../img/themes/LunaBlue/scrollbar-active-background.png');
+}
+
+*::-webkit-scrollbar-thumb:horizontal:hover {
+	border-image: url("../img/themes/LunaBlue/scrollbar-hover-horizontal.png") 3 3 3 3;
+	background-image: url('../img/themes/LunaBlue/scrollbar-hover-thing-horizontal.png'), url('../img/themes/LunaBlue/scrollbar-hover-background-horizontal.png');
+}
+*::-webkit-scrollbar-thumb:horizontal:active {
+	border-image: url("../img/themes/LunaBlue/scrollbar-active-horizontal.png") 3 3 3 3;
+	background-image: url('../img/themes/LunaBlue/scrollbar-active-thing-horizontal.png'), url('../img/themes/LunaBlue/scrollbar-active-background-horizontal.png');
 }
 
 window {
@@ -104,6 +189,12 @@ startButton {
 	color : #FFF;
 	letter-spacing : 0.4px;
 	text-shadow : 1px 1px 3px rgb(69 76 16), 0px 0px 3px rgb(69 76 16);
+}
+
+startButton #startButtonText {
+	font-family : Franklin Gothic;
+	font-size : 14.35pt;
+	font-style : italic;
 }
 
 startbutton:hover {
@@ -251,9 +342,9 @@ WindowManager #desktop div:focus icon {
 }
 
 textarea {
-	border : 2px solid #000 #FFF;
-	font-size : 8pt;
-	font-family : Tahoma;
+	border : 1px solid #7F9DB9;
+	padding : 1px;
+	resize: none;
 }
 
 contextMenu,
@@ -378,4 +469,11 @@ taskbar #taskbarTasks div:active {
 
 taskbar #taskbarTasks a {
 	color : white;
+}
+
+* {
+	font-size : 8pt;
+	font-family : Tahoma;
+	scrollbar-width: 17px;
+	scrollbar-color: #BBCEFD #F6F5F0;
 }

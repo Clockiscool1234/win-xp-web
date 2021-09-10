@@ -1,7 +1,19 @@
 * {
 	outline : none;
 	image-rendering: pixelated;
+
+	font-smooth: never;
+	-webkit-font-smoothing : none;
 }
+
+/* @font-face {
+	font-family: "Tahoma";
+	src: url("../fonts/fs-tahoma-8px.otf") format("opentype"),
+		 url("../fonts/fs-tahoma-8px.ttf")  format("truetype");
+	/* src: url("../fonts/tahoma.otf") format("opentype"); */
+	
+		 /* url("/fonts/tahoma.woff") format("woff");
+ */
 
 html, body {
 	--default-cursor : var(--arrow-cursor);
@@ -331,6 +343,8 @@ mainMenu p {
 	min-width : 100%;
 	padding-left : 22px;
 	padding-right : 16px;
+	height : 17px;
+	line-height: 11px;
 	box-sizing : border-box;
 	/* display : inline-block; */
 }
