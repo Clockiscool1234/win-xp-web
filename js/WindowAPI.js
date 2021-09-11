@@ -389,6 +389,10 @@ var WindowAPI = {
 		WindowAPI.zIndex++;
 		w.style.zIndex = WindowAPI.zIndex;
 		
+		w.taskbarItem.addEventListener("contextmenu", function(e) {
+			WindowAPI.showContextMenu(w.contextMenu, this, e);
+		});
+
 		w.setTitle = function(newT) {
 			titleText.innerText = newT;
 			taskbarText.innerText = newT;
@@ -633,8 +637,16 @@ WindowAPI["showContextMenu"] = function(JSONContextMenu, elem, clickEvent) {
 	// elemParent.appendChild(contextMenu);
 	document.body.appendChild(contextMenu);
 	contextMenu.style.zIndex = 999999999999999999;
-	contextMenu.style.left = clickEvent.pageX + 1 + "px";
-	contextMenu.style.top = clickEvent.pageY + 1 + "px";
+	if (clickEvent.pageY + contextMenu.clientHeight > document.body.clientHeight) {
+		contextMenu.style.top = clickEvent.pageY - contextMenu.clientHeight + "px";
+	} else {
+		contextMenu.style.top = clickEvent.pageY + "px";
+	}
+	if (clickEvent.pageX + contextMenu.clientWidth > document.body.clientWidth) {
+		contextMenu.style.left = clickEvent.pageX - contextMenu.clientHeight + "px";
+	} else {
+		contextMenu.style.left = clickEvent.pageX + "px";
+	}
 	contextMenu.focus();
 }
 

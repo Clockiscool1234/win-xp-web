@@ -353,6 +353,9 @@ mainMenu a subMenu {
 	padding : 2px;
 	background-color : #FFF;
 	box-shadow: 1px 1px 2.5px 0px rgba(0,0,0,0.75);
+	animation-name : fadein;
+	animation-duration: 0.25s;
+	animation-iteration-count: 1;
 }
 
 
