@@ -699,7 +699,7 @@ WindowAPI["loadProgram"]["fromURL"] = function(url, args, fromCache) {
 		delete main;
 	}, fromCache);
 };
-WindowAPI["errorIcons"] = ["url('img/Icons/Icon_52.ico')", "url('img/Icons/Icon_60.png')", "url('img/Icons/Icon_49.ico')"];
+WindowAPI["errorIcons"] = [["url('img/Icons/Icon_52.ico')", "sounds/Windows XP Exclamation.wav"], ["url('img/Icons/Icon_60.png')", "sounds/Windows XP Critical Stop.wav"], ["url('img/Icons/Icon_49.ico')", "sounds/Windows XP Exclamation.wav"]];
 WindowAPI["ShowError"] = function(errorText, errorTitle, errorIconID) {
 	var w = WindowAPI.CreateWindow(errorTitle);
 	w.titlebar.max.style.display = "none";
@@ -707,7 +707,7 @@ WindowAPI["ShowError"] = function(errorText, errorTitle, errorIconID) {
 	w.settings.canResize = false;
 	var i = document.createElement("div");
 	
-	i.style.backgroundImage = WindowAPI["errorIcons"][errorIconID];
+	i.style.backgroundImage = WindowAPI["errorIcons"][errorIconID][0];
 	i.style.width = "40px";
 	i.style.height = "calc(100% - 31px)";
 	i.style.backgroundRepeat = "no-repeat";
@@ -751,4 +751,7 @@ WindowAPI["ShowError"] = function(errorText, errorTitle, errorIconID) {
 	
 	w.style.width = t.clientWidth + 55 + "px";
 	w.style.height = t.clientHeight + 81 + "px";
+
+	var audio = new Audio(WindowAPI["errorIcons"][errorIconID][1]);
+	audio.play();
 }
