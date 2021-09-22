@@ -946,8 +946,12 @@ WindowAPI["showLogonui"] = function() {
 			//
 			//DesktopFiles
 			//
-			
-			for (i = 0; i < userData.DesktopFiles.length; i++) {
+			fs.readdir("data/C/", (err, files) => {
+				desktopFiles.forEach(file => {
+				  console.log(file);
+				});
+			  });
+			for (i = 0; i < ; i++) {
 				var f = userData.DesktopFiles[i];
 				var desktopIcon = document.createElement("div");
 				var desktopIconImage = document.createElement("icon");
@@ -1020,7 +1024,7 @@ WindowAPI["showLogonui"] = function() {
 		  return fs.statSync(path+'/'+file).isDirectory();
 		});
 	  }
-
+	  
 	  getDirectories("data/C/Documents And Settings/").forEach(function(directory) {
 		// fs.readFileSync()
 		if (directory != "default") {
@@ -1075,5 +1079,11 @@ WindowAPI["fileSystem"]["getAllFilesInFolder"] = function(path, callback) {
 	if (!WindowAPI["isNode"]) return [];
 	fs.readdir("./data/" + path.replace(":", ""), callback);
 }
+WindowAPI["fileSystem"]["getPath"] = function(path) {
+	
+}
 WindowAPI["winlogon"] = {};
 
+WindowAPI["path"] = {
+	"userprofile" : "C:/Documents And Settings/default/"
+};
