@@ -6,6 +6,9 @@
 	-webkit-font-smoothing : none;
 }
 
+webview iframe {
+	height : 100%;
+}
 /* @font-face {
 	font-family: "Tahoma";
 	src: url("../fonts/fs-tahoma-8px.otf") format("opentype"),
