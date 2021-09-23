@@ -186,6 +186,9 @@ var WindowAPI = {
 		}
 			
 	},
+	"path" : {
+		"userprofile" : "C:/Documents And Settings/default/"
+	},
 	"CreateWindow" : function(name, autoFocus) {
 		var w = document.createElement("window");
 		document.body.getElementsByTagName("WindowManager")[0].appendChild(w);
@@ -792,7 +795,8 @@ WindowAPI["showLogonui"] = function() {
 	// logInUser.innerText = "Log-in using text";
 	// logInUser.style.textAlign = "left";
 
-	WindowAPI["winlogon"]["login"] = function(ntuserPath) {
+	WindowAPI["winlogon"]["login"] = function(userPath) {
+		ntuserPath = userPath + "/ntuser.json";
 		function logIn() {
 					//Save Data when closed
 			window.addEventListener("beforeunload", saveUserData, false);
@@ -946,54 +950,52 @@ WindowAPI["showLogonui"] = function() {
 			//
 			//DesktopFiles
 			//
-			fs.readdir("data/C/", (err, files) => {
+			WindowAPI["path"]["userprofile"] = userPath;
+			var desktopPath = WindowAPI.fileSystem.getPath("%userprofile%/Desktop/");
+			fs.readdir(desktopPath, (err, files) => {
 				desktopFiles.forEach(file => {
-				  console.log(file);
+					var desktopIcon = document.createElement("div");
+					var desktopIconImage = document.createElement("icon");
+					var desktopIconName = document.createElement("a");
+					desktopIcon.tabIndex = 0;
+					var fileExt = WindowAPI.fileSystem.getFileExt(file);
+					if (Windows_Registry["FileExts"][fileExt]) {
+						console.log(Windows_Registry["FileExts"][fileExt].f);
+						desktopIconImage.style.backgroundImage = "url('" + Windows_Registry["FileExts"][fileExt].icon + "')";
+						// img.src = "img/Icons/Icon_6.ico";
+						desktopIcon.addEventListener("dblclick", function() {
+							console.log("open");
+							Windows_Registry["FileExts"][fileExt].defaultProgram(this.file);
+						});
+					} else {
+						desktopIconImage.style.backgroundImage = "url('img/Icons/Icon_6.ico')";
+					}
+					
+					desktopIconName.innerText = f.name;
+					desktopIcon.appendChild(desktopIconImage);
+					desktopIcon.appendChild(document.createElement("br"));
+					desktopIcon.appendChild(desktopIconName);
+					desktopIcon["filePath"] = desktopPath + file;
+					desktopIcon.addEventListener("contextmenu", function() {
+						var f = this.file;
+						function whenClicked() {
+							Windows_Registry["FileExts"][fileExt].defaultProgram(desktopPath + file);
+						}
+						
+						function whenEditClicked() {
+							Windows_Registry["FileExts"][fileExt].defaultEditProgram(desktopPath + file);
+						}
+						var cTextMenu = [
+							{"name" : languages[userData["selectedLanguage"]]["open"], "click" : whenClicked},
+							{"name" : languages[userData["selectedLanguage"]]["edit"], "click" : whenEditClicked}
+						]
+						
+						console.log(cTextMenu);
+						WindowAPI.showContextMenu(cTextMenu, this, event);
+					});
+					document.getElementById("Desktop").appendChild(desktopIcon);
 				});
 			  });
-			for (i = 0; i < ; i++) {
-				var f = userData.DesktopFiles[i];
-				var desktopIcon = document.createElement("div");
-				var desktopIconImage = document.createElement("icon");
-				var desktopIconName = document.createElement("a");
-				desktopIcon.tabIndex = 0;
-				
-				if (Windows_Registry["FileExts"][f["FileExtension"]]) {
-					console.log(Windows_Registry["FileExts"][f["FileExtension"]].f);
-					desktopIconImage.style.backgroundImage = "url('" + Windows_Registry["FileExts"][f["FileExtension"]].icon + "')";
-					// img.src = "img/Icons/Icon_6.ico";
-					desktopIcon.addEventListener("dblclick", function() {
-						console.log("open");
-						Windows_Registry["FileExts"][f["FileExtension"]].defaultProgram(this.file);
-					});
-				} else {
-					desktopIconImage.style.backgroundImage = "url('img/Icons/Icon_6.ico')";
-				}
-				
-				desktopIconName.innerText = f.name;
-				desktopIcon.appendChild(desktopIconImage);
-				desktopIcon.appendChild(document.createElement("br"));
-				desktopIcon.appendChild(desktopIconName);
-				desktopIcon["file"] = f;
-				desktopIcon.addEventListener("contextmenu", function() {
-					var f = this.file;
-					function whenClicked() {
-						Windows_Registry["FileExts"][f["FileExtension"]].defaultProgram(f);
-					}
-					
-					function whenEditClicked() {
-						Windows_Registry["FileExts"][f["FileExtension"]].defaultEditProgram(f);
-					}
-					var cTextMenu = [
-						{"name" : languages[userData["selectedLanguage"]]["open"], "click" : whenClicked},
-						{"name" : languages[userData["selectedLanguage"]]["edit"], "click" : whenEditClicked}
-					]
-					
-					console.log(cTextMenu);
-					WindowAPI.showContextMenu(cTextMenu, this, event);
-				});
-				document.getElementById("Desktop").appendChild(desktopIcon);
-			}
 			d.remove();
 		}
 		
@@ -1036,7 +1038,7 @@ WindowAPI["showLogonui"] = function() {
 			user.style.textAlign = "left";
 			cD.appendChild(user);
 			user.addEventListener("click", function() {
-				WindowAPI.winlogon.login(".\\data\\C\\Documents And Settings\\" + directory + "\\NTUSER.json");
+				WindowAPI.winlogon.login(".\\data\\C\\Documents And Settings\\" + directory);
 				d.remove();
 			});
 		}
@@ -1080,10 +1082,10 @@ WindowAPI["fileSystem"]["getAllFilesInFolder"] = function(path, callback) {
 	fs.readdir("./data/" + path.replace(":", ""), callback);
 }
 WindowAPI["fileSystem"]["getPath"] = function(path) {
-	
+	var newPath = path;
+	WindowAPI["path"].keys().forEach(function(pathKey) {
+		newPath = newPath.replace("%" + pathKey + "%", WindowAPI["path"][pathKey]);
+	});
+	return "./data/" + newPath.replace("\\", "/").replace(":", "");
 }
 WindowAPI["winlogon"] = {};
-
-WindowAPI["path"] = {
-	"userprofile" : "C:/Documents And Settings/default/"
-};
