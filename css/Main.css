@@ -322,8 +322,8 @@ WindowManager #desktop div {
 	float : left;
 	text-align : center;
 	vertical-align : middle;
-	min-width : 48px;
-	min-height : 48px;
+	width : 48px;
+	height : 48px;
 }
 
 WindowManager #desktop icon {

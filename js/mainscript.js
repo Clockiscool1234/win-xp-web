@@ -75,10 +75,31 @@ var userData = {
 var Windows_Registry = {
 	"FileExts" : {
 		"js" : {
-			"icon" : "img/Icons/js.ico"
+			"icon" : "img/Icons/js.ico",
+			"defaultProgram" : function(file) {
+				try {
+					eval(file.Content);
+				} catch(ex) {
+					WindowAPI.ShowError(ex.toString(), file.name, 1);
+				}
+			},
+			"defaultEditProgram" : function(file) {
+				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
+			}
+		},
+		"txt" : {
+			"icon" : "img/Icons/notepadFile.ico",
+			"defaultProgram" : function(file) {
+				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
+			},
+			"defaultEditProgram" : function(file) {
+				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
+			}
 		}
 	}
 }
+
+
 function Login(userData) {
 	if (userData) {
 		userData = JSON.parse(userData);
