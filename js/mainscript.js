@@ -88,7 +88,7 @@ var Windows_Registry = {
 			}
 		},
 		"txt" : {
-			"icon" : "img/Icons/notepadFile.ico",
+			"icon" : "img/Icons/notepadIcon.ico",
 			"defaultProgram" : function(file) {
 				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
 			},

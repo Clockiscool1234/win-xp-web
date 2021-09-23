@@ -1071,6 +1071,19 @@ WindowAPI["fileSystem"]["getFileExt"] = function(path) {
 		return fileSplit[fileSplit.length - 1];
 	}
 }
+WindowAPI.fileSystem["getFileNameWithoutExt"] = function(path) {
+	var split = path.replace("\\", "/").split("/");
+	var fileSplit = split[split.length - 1].split(".");
+	if (fileSplit.length < 2) {
+		return split[split.length - 1];
+	} else {
+		var nameArray = [];
+		for(var i = 0; i < fileSplit.length - 1; i++) {
+			nameArray.push(fileSplit[i]);
+		}
+		return nameArray.join(".");
+	}
+}
 WindowAPI["fileSystem"]["getFileName"] = function(path) {
 	var split = path.replace("\\", "/").split("/");
 	return split[split.length - 1];
