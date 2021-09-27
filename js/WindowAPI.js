@@ -919,8 +919,14 @@ WindowAPI["showLogonui"] = function() {
 			//DesktopFiles
 			//
 			WindowAPI["path"]["userprofile"] = userPath;
-			var desktopPath = WindowAPI.fileSystem.getPath("%userprofile%/Desktop/");
-			fs.readdir(desktopPath, (err, files) => {
+			WindowAPI["desktop"] = {};
+			var winDesk = document.getElementById("Desktop");
+			WindowAPI["desktop"]["refresh"]  = function() {
+				var desktopPath = WindowAPI.fileSystem.getPath("%userprofile%/Desktop/");
+				winDesk.childNodes.forEach(function(node) {
+					node.remove();
+				})
+				fs.readdir(desktopPath, (err, files) => {
 				if (err) throw err;
 				files.forEach(file => {
 					var desktopIcon = document.createElement("div");
@@ -946,7 +952,7 @@ WindowAPI["showLogonui"] = function() {
 					desktopIcon.appendChild(document.createElement("br"));
 					desktopIcon.appendChild(desktopIconName);
 					desktopIcon["filePath"] = desktopPath + file;
-					desktopIcon.addEventListener("contextmenu", function() {
+					desktopIcon.addEventListener("contextmenu", function(e) {
 						var f = this.file;
 						function whenClicked() {
 							Windows_Registry["FileExts"][fileExt].defaultProgram(desktopPath + file);
@@ -962,10 +968,20 @@ WindowAPI["showLogonui"] = function() {
 						
 						console.log(cTextMenu);
 						WindowAPI.showContextMenu(cTextMenu, this, event);
+						e.preventDefault();
+						e.stopPropagation();
 					});
-					document.getElementById("Desktop").appendChild(desktopIcon);
+					winDesk.appendChild(desktopIcon);
 				});
-			  });
+			  	});
+			}
+			winDesk.addEventListener("contextmenu", function(ev) {
+				WindowAPI.showContextMenu([{
+					"name" : "Refresh",
+					"click" : () => WindowAPI.desktop.refresh()
+				}], this, ev)
+			})
+			WindowAPI.desktop.refresh();
 			d.remove();
 		}
 		
