@@ -95,6 +95,15 @@ var Windows_Registry = {
 			"defaultEditProgram" : function(file) {
 				WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
 			}
+		},
+		".folder" : {
+			"icon" : "img/Icons/folder.png",
+			"defaultProgram" : function(folder) {
+				WindowAPI.loadProgram.fromURL("js/soft/explorer.js", {folder : folder})
+			},
+			"defaultEditProgram" : function(folder) {
+				WindowAPI.loadProgram.fromURL("js/soft/explorer.js", {folder : folder})
+			}
 		}
 	}
 }
