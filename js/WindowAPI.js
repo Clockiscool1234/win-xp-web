@@ -1,4 +1,6 @@
-const { cpuUsage } = require('process');
+const { cpuUsage } = null;
+
+if (require != null) require('process');
 
 var debug = false;
 
