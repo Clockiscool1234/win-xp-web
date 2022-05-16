@@ -1,7 +1,3 @@
-// const { cpuUsage } = null;
-
-//if (require != null) require('process');
-
 var debug = false;
 
 var WindowAPI = {
@@ -189,9 +185,6 @@ var WindowAPI = {
 				
 		}
 			
-	},
-	"path" : {
-		"userprofile" : "C:/Documents And Settings/default/"
 	},
 	"CreateWindow" : function(name, autoFocus) {
 		var w = document.createElement("window");
@@ -799,8 +792,7 @@ WindowAPI["showLogonui"] = function() {
 	// logInUser.innerText = "Log-in using text";
 	// logInUser.style.textAlign = "left";
 
-	WindowAPI["winlogon"]["login"] = function(userPath) {
-		ntuserPath = WindowAPI.fileSystem.getPath(userPath + "/ntuser.json");
+	WindowAPI["winlogon"]["login"] = function(ntuserPath) {
 		function logIn() {
 					//Save Data when closed
 			window.addEventListener("beforeunload", saveUserData, false);
@@ -905,6 +897,40 @@ WindowAPI["showLogonui"] = function() {
 				WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["InternetExplorer"], whenProgramOpen, "img/Icons/iexplore48.png");
 			}
 			
+			if (true) {
+				function whenProgramOpen(file) {
+					try {
+						eval(file.Content);
+					} catch(ex) {
+						WindowAPI.ShowError(ex.toString(), file.name, 1);
+					}
+				}
+				Windows_Registry.FileExts.js.defaultProgram = whenProgramOpen;
+			}
+			if (true) {
+				
+				Windows_Registry.FileExts.js.defaultEditProgram = function(file) {
+					WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {file : file})
+				};
+				// var b = document.createElement("menuBand");
+				// var t = document.createElement("a");
+				// var img = document.createElement("img");
+				// t.innerText = languages[userData["selectedLanguage"]]["notepad"];
+				// img.src = "img/Icons/notepad.ico";
+				
+				// b.appendChild(img);
+				// b.appendChild(t);
+				
+				// b.addEventListener("click", function() {
+					// whenProgramOpen();
+				// });
+				// startMenu_Programs.appendChild(b);
+				WindowAPI.StartMenu.Add(languages[userData["selectedLanguage"]]["notepad"], function() {
+					WindowAPI.loadProgram.fromURL("js/soft/notepad.js", {})
+				}, "img/Icons/notepad.ico");
+				
+				
+			}
 			
 			if (true) {
 				function whenProgramOpen() {
@@ -920,14 +946,54 @@ WindowAPI["showLogonui"] = function() {
 			//
 			//DesktopFiles
 			//
-			WindowAPI["path"]["userprofile"] = userPath;
-			WindowAPI["desktop"] = {};
-			var winDesk = document.getElementById("Desktop");
-			var desktopIcons = [];
-			WindowAPI["desktop"]["refresh"]  = function() {
-				WindowAPI.explorer.refreshFolder(winDesk, "%userprofile%/Desktop/");
+			fs.readdir("data/C/", (err, files) => {
+				desktopFiles.forEach(file => {
+				  console.log(file);
+				});
+			  });
+			for (i = 0; i < ; i++) {
+				var f = userData.DesktopFiles[i];
+				var desktopIcon = document.createElement("div");
+				var desktopIconImage = document.createElement("icon");
+				var desktopIconName = document.createElement("a");
+				desktopIcon.tabIndex = 0;
+				
+				if (Windows_Registry["FileExts"][f["FileExtension"]]) {
+					console.log(Windows_Registry["FileExts"][f["FileExtension"]].f);
+					desktopIconImage.style.backgroundImage = "url('" + Windows_Registry["FileExts"][f["FileExtension"]].icon + "')";
+					// img.src = "img/Icons/Icon_6.ico";
+					desktopIcon.addEventListener("dblclick", function() {
+						console.log("open");
+						Windows_Registry["FileExts"][f["FileExtension"]].defaultProgram(this.file);
+					});
+				} else {
+					desktopIconImage.style.backgroundImage = "url('img/Icons/Icon_6.ico')";
+				}
+				
+				desktopIconName.innerText = f.name;
+				desktopIcon.appendChild(desktopIconImage);
+				desktopIcon.appendChild(document.createElement("br"));
+				desktopIcon.appendChild(desktopIconName);
+				desktopIcon["file"] = f;
+				desktopIcon.addEventListener("contextmenu", function() {
+					var f = this.file;
+					function whenClicked() {
+						Windows_Registry["FileExts"][f["FileExtension"]].defaultProgram(f);
+					}
+					
+					function whenEditClicked() {
+						Windows_Registry["FileExts"][f["FileExtension"]].defaultEditProgram(f);
+					}
+					var cTextMenu = [
+						{"name" : languages[userData["selectedLanguage"]]["open"], "click" : whenClicked},
+						{"name" : languages[userData["selectedLanguage"]]["edit"], "click" : whenEditClicked}
+					]
+					
+					console.log(cTextMenu);
+					WindowAPI.showContextMenu(cTextMenu, this, event);
+				});
+				document.getElementById("Desktop").appendChild(desktopIcon);
 			}
-			WindowAPI.desktop.refresh();
 			d.remove();
 		}
 		
@@ -970,7 +1036,7 @@ WindowAPI["showLogonui"] = function() {
 			user.style.textAlign = "left";
 			cD.appendChild(user);
 			user.addEventListener("click", function() {
-				WindowAPI.winlogon.login("C:\\Documents And Settings\\" + directory);
+				WindowAPI.winlogon.login(".\\data\\C\\Documents And Settings\\" + directory + "\\NTUSER.json");
 				d.remove();
 			});
 		}
@@ -1014,120 +1080,10 @@ WindowAPI["fileSystem"]["getAllFilesInFolder"] = function(path, callback) {
 	fs.readdir("./data/" + path.replace(":", ""), callback);
 }
 WindowAPI["fileSystem"]["getPath"] = function(path) {
-	var newPath = path;
-	Object.keys(WindowAPI["path"]).forEach(function(pathKey) {
-		newPath = newPath.replace("%" + pathKey + "%", WindowAPI["path"][pathKey]);
-	});
-	if (newPath.replace("\\", "/").startsWith("./data/")) {
-		return newPath.replace("\\", "/").replace(":", "");
-	} else {
-		return "./data/" + newPath.replace("\\", "/").replace(":", "");
-	}
-}
-WindowAPI["fileSystem"]["getFileExt"] = function(path) {
-	var split = path.replace("\\", "/").split("/");
-	var fileSplit = split[split.length - 1].split(".");
-	if (fileSplit.length < 2) {
-		return "";
-	} else {
-		return fileSplit[fileSplit.length - 1];
-	}
-}
-WindowAPI.fileSystem["getFileNameWithoutExt"] = function(path) {
-	var split = path.replace("\\", "/").split("/");
-	var fileSplit = split[split.length - 1].split(".");
-	if (fileSplit.length < 2) {
-		return split[split.length - 1];
-	} else {
-		var nameArray = [];
-		for(var i = 0; i < fileSplit.length - 1; i++) {
-			nameArray.push(fileSplit[i]);
-		}
-		return nameArray.join(".");
-	}
-}
-WindowAPI["fileSystem"]["getFileName"] = function(path) {
-	var split = path.replace("\\", "/").split("/");
-	return split[split.length - 1];
-}
-WindowAPI["fileSystem"]["getFileNameWithPath"] = function(path) {
-	var fileSplit = path.split(".");
-	if (fileSplit.length < 2) {
-		return split[split.length - 1];
-	} else {
-		var nameArray = [];
-		for(var i = 0; i < fileSplit.length - 1; i++) {
-			nameArray.push(fileSplit[i]);
-		}
-		return nameArray.join(".");
-	}
+	
 }
 WindowAPI["winlogon"] = {};
 
-WindowAPI["explorer"] = {};
-WindowAPI["explorer"]["refreshFolder"] = function(winDesk, path) {
-		// winDesk.remove();
-		// winDesk = document.createElement("div");
-		var desktopPath = WindowAPI.fileSystem.getPath(path);
-		if (winDesk.icons == null) winDesk.icons = [];
-		winDesk.icons.forEach(function(ico) {
-			ico.remove();
-		});
-		fs.readdir(desktopPath, (err, files) => {
-		if (err) throw err;
-		files.forEach(file => {
-			var desktopIcon = document.createElement("div");
-			var desktopIconImage = document.createElement("icon");
-			var desktopIconName = document.createElement("a");
-			desktopIcon.tabIndex = 0;
-			console.log(file);
-			var fileExt = WindowAPI.fileSystem.getFileExt(file);
-			if (fs.lstatSync(desktopPath + "/" + file).isDirectory()) fileExt = ".folder";
-			if (Windows_Registry["FileExts"][fileExt]) {
-				console.log(Windows_Registry["FileExts"][fileExt].f);
-				desktopIconImage.style.backgroundImage = "url('" + WindowAPI.fileSystem.getFileNameWithPath(Windows_Registry["FileExts"][fileExt].icon) + "32." + WindowAPI.fileSystem.getFileExt(Windows_Registry["FileExts"][fileExt].icon) + "')";
-				// img.src = "img/Icons/Icon_6.ico";
-				desktopIcon.addEventListener("dblclick", function() {
-					console.log("open");
-					Windows_Registry["FileExts"][fileExt].defaultProgram(desktopPath + file);
-				});
-			} else {
-				desktopIconImage.style.backgroundImage = "url('img/Icons/Icon_6.ico')";
-			}
-			
-			desktopIconName.innerText = file;
-			desktopIcon.appendChild(desktopIconImage);
-			desktopIcon.appendChild(document.createElement("br"));
-			desktopIcon.appendChild(desktopIconName);
-			desktopIcon["filePath"] = desktopPath + file;
-			desktopIconImage.style.backgroundSize = "32px 32px";
-			desktopIcon.addEventListener("contextmenu", function(e) {
-				var f = this.file;
-				function whenClicked() {
-					Windows_Registry["FileExts"][fileExt].defaultProgram(desktopPath + file);
-				}
-				
-				function whenEditClicked() {
-					Windows_Registry["FileExts"][fileExt].defaultEditProgram(desktopPath + file);
-				}
-				var cTextMenu = [
-					{"name" : languages[userData["selectedLanguage"]]["open"], "click" : whenClicked},
-					{"name" : languages[userData["selectedLanguage"]]["edit"], "click" : whenEditClicked}
-				]
-				
-				console.log(cTextMenu);
-				WindowAPI.showContextMenu(cTextMenu, this, event);
-				e.preventDefault();
-				e.stopPropagation();
-			});
-			winDesk.appendChild(desktopIcon);
-			winDesk.icons.push(desktopIcon);
-		});
-		winDesk.addEventListener("contextmenu", function(ev) {
-			WindowAPI.showContextMenu([{
-				"name" : "Refresh",
-				"click" : () => WindowAPI.desktop.refresh()
-			}], this, ev)
-		})
-		  });
-}
+WindowAPI["path"] = {
+	"userprofile" : "C:/Documents And Settings/default/"
+};
