@@ -1,4 +1,4 @@
-const { cpuUsage } = null;
+// const { cpuUsage } = null;
 
 if (require != null) require('process');
 
